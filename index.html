@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Veterinario Polipet´s | Clínica y Diagnóstico</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/VLh2ymVb/logo.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        japandi: {
+                            bg: '#F9F8F6',
+                            text: '#2D2A26',
+                            light: '#EFECE6',
+                            moss: '#556B52',
+                            ochre: '#C49755',
+                            indigo: '#2F3E46'
+                        },
+                        brand: {
+                            blue: '#0B2252',
+                            gray: '#8A8D8F',
+                            teal: '#006B75'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Inter', 'sans-serif']
+                    },
+                    animation: {
+                        'slow-pan': 'panImage 30s linear infinite alternate',
+                    },
+                    keyframes: {
+                        panImage: {
+                            '0%': { transform: 'scale(1.05) translate(0, 0)' },
+                            '100%': { transform: 'scale(1.15) translate(-2%, -2%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <!-- Flatpickr (Calendario Moderno) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Estilos Personalizados (Animaciones y Formularios) -->
+    <style>
+        body {
+            background-color: #F9F8F6;
+            color: #2D2A26;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Utilidad de Fade-in controlada por IntersectionObserver */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navbar Dinámico */
+        #navbar {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #navbar.scrolled {
+            background-color: rgba(249, 248, 246, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* Hamburguesa Móvil (CSS puro) */
+        .hamburger-line {
+            transition: transform 0.4s ease, opacity 0.4s ease, background-color 0.4s ease;
+            transform-origin: center;
+        }
+        .menu-open .line-1 { transform: translateY(8px) rotate(45deg); }
+        .menu-open .line-2 { opacity: 0; }
+        .menu-open .line-3 { transform: translateY(-8px) rotate(-45deg); }
+
+        /* Datepicker Invisible Hack (Modificado para Flatpickr) */
+        .date-input-wrapper { position: relative; cursor: pointer; }
+        .date-input-wrapper input {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; cursor: pointer;
+            z-index: 10;
+            background: transparent;
+        }
+
+        /* Personalización del Calendario Flatpickr */
+        .flatpickr-calendar {
+            font-family: 'Inter', sans-serif !important;
+            border: none !important;
+            box-shadow: 0 20px 60px -15px rgba(11,34,82,0.15) !important;
+            border-radius: 12px !important;
+            padding: 10px !important;
+        }
+        .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange, .flatpickr-day.endRange.inRange, .flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus, .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover, .flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay, .flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay {
+            background: #006B75 !important;
+            border-color: #006B75 !important;
+        }
+        .flatpickr-day:hover {
+            background: #EFECE6 !important;
+            border-color: #EFECE6 !important;
+            color: #2D2A26 !important;
+        }
+        .flatpickr-months .flatpickr-month {
+            color: #0B2252 !important;
+            fill: #0B2252 !important;
+        }
+        .flatpickr-current-month input.cur-year { font-weight: 600 !important; }
+        .flatpickr-current-month .flatpickr-monthDropdown-months { font-weight: 600 !important; }
+        span.flatpickr-weekday { color: #8A8D8F !important; font-weight: 500 !important; }
+        
+        /* Ocultar barra de scroll en menú móvil */
+        #mobile-menu::-webkit-scrollbar { display: none; }
+        
+        /* Acordeón FAQ */
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Botón WhatsApp Flotante Minimalista */
+        .whatsapp-btn-minimal {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background-color: #ffffff;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 8px 20px 8px 8px;
+            flex-direction: row; 
+        }
+
+        .whatsapp-btn-minimal:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .wa-logo-bg {
+            background-color: #25D366;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .wa-text-label {
+            color: #0B2252;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* Ajuste para móviles */
+        @media (max-width: 768px) {
+            .whatsapp-btn-minimal {
+                bottom: 20px;
+                right: 20px;
+                left: auto;
+                padding: 6px 16px 6px 6px;
+            }
+            .wa-logo-bg {
+                width: 36px;
+                height: 36px;
+            }
+            .wa-text-label {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden">
+
+    <!-- BOTÓN WHATSAPP FLOTANTE -->
+    <a href="https://wa.me/573124849928" target="_blank" rel="noopener noreferrer" class="whatsapp-btn-minimal" aria-label="Contactar por WhatsApp">
+        <div class="wa-logo-bg">
+            <!-- Icono SVG oficial de WhatsApp -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+        </div>
+        <span class="wa-text-label">Contáctanos</span>
+    </a>
+
+    <!-- OVERLAY MENÚ MÓVIL -->
+    <div id="mobile-menu" class="fixed inset-0 bg-japandi-bg z-40 transform translate-x-full transition-transform duration-700 cubic-bezier(0.16, 1, 0.3, 1) flex flex-col justify-center items-center">
+        <nav class="flex flex-col gap-8 text-center text-xl font-sans tracking-wide">
+            <a href="#sobre-nosotros" class="menu-link text-brand-blue hover:text-brand-teal transition-colors">Quiénes Somos</a>
+            <a href="#servicios" class="menu-link text-brand-blue hover:text-brand-teal transition-colors">Servicios</a>
+            <a href="#testimonios" class="menu-link text-brand-blue hover:text-brand-teal transition-colors">Testimonios</a>
+            <a href="#reservas" class="menu-link text-brand-teal font-semibold hover:text-brand-blue transition-colors">Agendar Cita</a>
+        </nav>
+    </div>
+
+    <!-- NAVEGACIÓN -->
+    <header id="navbar" class="fixed w-full top-0 z-50 py-4 px-6 md:px-12 text-white">
+        <div class="max-w-7xl mx-auto flex flex-col items-center lg:gap-3 transition-all duration-300">
+            <!-- Fila superior: Logo (y botón hamburguesa en móviles) -->
+            <div class="w-full flex justify-between items-center lg:justify-center">
+                <!-- Logo Monoline -->
+                <a href="#" class="flex items-center gap-3 font-sans font-light tracking-widest text-lg md:text-xl uppercase z-50 nav-logo transition-colors duration-500 text-white">
+                    <img src="https://i.postimg.cc/VLh2ymVb/logo.png" alt="Logo Polipet's" class="h-8 md:h-10 w-auto transition-all duration-500 brightness-0 invert header-logo-img">
+                    <span>Polipet´s</span>
+                </a>
+
+                <!-- Botón Móvil -->
+                <button id="menu-toggle" class="lg:hidden z-50 w-8 h-8 flex flex-col justify-center gap-1.5 focus:outline-none" aria-label="Abrir menú">
+                    <span class="hamburger-line line-1 block w-full h-[1px] bg-current"></span>
+                    <span class="hamburger-line line-2 block w-full h-[1px] bg-current"></span>
+                    <span class="hamburger-line line-3 block w-full h-[1px] bg-current"></span>
+                </button>
+            </div>
+
+            <!-- Desktop Nav (Fila inferior) -->
+            <nav class="hidden lg:flex gap-5 xl:gap-10 items-center text-[11px] xl:text-sm tracking-[0.15em] uppercase">
+                <a href="#sobre-nosotros" class="text-white hover:opacity-70 hover:text-brand-teal transition-all duration-300">Quiénes Somos</a>
+                <a href="#servicios" class="text-white hover:opacity-70 hover:text-brand-teal transition-all duration-300">Servicios</a>
+                <a href="#testimonios" class="text-white hover:opacity-70 hover:text-brand-teal transition-all duration-300">Testimonios</a>
+                <a href="#reservas" class="text-white font-semibold border border-white/30 px-4 py-2 rounded-md hover:bg-white hover:text-brand-blue transition-all duration-300 nav-cta">Agendar Cita</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- BLOQUE 1: PRIMERA PANTALLA (HERO SECTION) -->
+    <section class="relative h-screen w-full overflow-hidden flex items-center justify-center">
+        <!-- Imagen de fondo con animación lenta -->
+        <div class="absolute inset-0 w-full h-full">
+            <img src="https://i.postimg.cc/65jKtzwN/background.png" alt="Fondo Centro Veterinario Polipet's" class="object-cover w-full h-full animate-slow-pan">
+            <!-- Overlay oscuro original para legibilidad -->
+            <div class="absolute inset-0 bg-brand-blue/40 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-japandi-bg/90"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20 fade-in">
+            <p class="text-brand-teal font-sans tracking-[0.2em] text-sm md:text-base uppercase mb-6 drop-shadow-[0_0_12px_rgba(255,255,255,1)] font-bold">CENTRO VETERINARIO Y PETSHOP POLIPET'S</p>
+            
+            <!-- Título con colores de la marca y efecto glow blanco -->
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif text-brand-blue mb-8 leading-tight drop-shadow-[0_0_25px_rgba(255,255,255,1)]">
+                Dejamos huellas <br class="hidden md:block">de amor.
+            </h1>
+            
+            <div class="text-lg font-light mb-12 max-w-2xl mx-auto flex flex-col gap-2">
+                <p class="text-xl md:text-2xl font-serif text-brand-blue drop-shadow-[0_0_12px_rgba(255,255,255,1)]">Agenda tu cita</p>
+                <p class="tracking-widest uppercase text-sm mt-2 text-brand-teal font-bold drop-shadow-[0_0_12px_rgba(255,255,255,1)]">Lunes a Sábado</p>
+                <p class="font-bold text-brand-blue drop-shadow-[0_0_12px_rgba(255,255,255,1)]">8:00 AM a 6:00 PM</p>
+            </div>
+            
+            <!-- Botón (Azul -> Blanco) -->
+            <a href="#reservas" class="inline-block bg-brand-blue text-white font-sans tracking-[0.2em] uppercase text-xs md:text-sm px-10 py-4 border-2 border-brand-blue hover:bg-white hover:text-brand-blue active:bg-white active:text-brand-blue transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-lg rounded-sm">
+                Agendar Cita
+            </a>
+        </div>
+    </section>
+
+    <!-- BLOQUE 2: SOBRE NOSOTROS -->
+    <section id="sobre-nosotros" class="py-24 md:py-32 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <!-- Columna de Texto -->
+                <div class="fade-in order-2 lg:order-1">
+                    <p class="text-brand-teal font-sans tracking-[0.2em] text-sm uppercase mb-4 font-semibold">Quiénes Somos</p>
+                    <h2 class="text-3xl md:text-5xl font-serif text-brand-blue mb-6 leading-tight">Un diagnóstico a tiempo salva vidas.</h2>
+                    <div class="w-12 h-[2px] bg-brand-teal mb-8"></div>
+                    
+                    <div class="space-y-6 text-japandi-text/80 text-lg font-light leading-relaxed">
+                        <p>
+                            Muchas enfermedades son silenciosas y sus síntomas pueden confundirse. En Polipet's, no dejamos la salud de tu mascota al azar.
+                        </p>
+                        <p class="font-medium text-brand-blue">
+                            Nos enfocamos en la medicina preventiva y el diagnóstico preciso por imagen para actuar a tiempo, creando un vínculo de confianza en cada visita.
+                        </p>
+                        <p>
+                            Brindamos calidad médica en un ambiente tranquilo, asegurando que tu mejor amigo esté siempre en las mejores manos.
+                        </p>
+                    </div>
+
+                    <div class="mt-10 flex items-center gap-6">
+                        <div class="flex -space-x-4">
+                            <img class="w-12 h-12 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=100&q=80" alt="Veterinario 1">
+                            <img class="w-12 h-12 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=100&q=80" alt="Veterinario 2">
+                        </div>
+                        <div class="text-sm font-medium text-brand-blue">
+                            Atención profesional <br><span class="font-light text-brand-gray">liderada por el Dr. Pedro</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna de Imagen -->
+                <div class="fade-in order-1 lg:order-2 relative w-full max-w-md mx-auto lg:max-w-none">
+                    <!-- Contenedor con marco minimalista, azul y elegante -->
+                    <div id="about-carousel" class="aspect-square w-full rounded-2xl overflow-hidden shadow-[0_20px_50px_-12px_rgba(11,34,82,0.15)] border border-brand-blue/20 relative z-10 group/slider">
+                        <!-- Slider Track -->
+                        <div class="slider-track flex transition-transform duration-700 ease-in-out h-full w-full bg-japandi-bg">
+                            <img src="https://i.postimg.cc/Wp5tKGDd/1.jpg" alt="Paciente en Polipet's 1" class="w-full h-full object-cover block shrink-0" referrerpolicy="no-referrer">
+                            <img src="https://i.postimg.cc/G3X9NFBB/2.jpg" alt="Paciente en Polipet's 2" class="w-full h-full object-cover block shrink-0" referrerpolicy="no-referrer">
+                            <img src="https://i.postimg.cc/YqjjwvgM/3.jpg" alt="Paciente en Polipet's 3" class="w-full h-full object-cover block shrink-0" referrerpolicy="no-referrer">
+                            <img src="https://i.postimg.cc/vHDDd49G/4.jpg" alt="Paciente en Polipet's 4" class="w-full h-full object-cover block shrink-0" referrerpolicy="no-referrer">
+                            <img src="https://i.postimg.cc/J4ttWsJ1/5.jpg" alt="Paciente en Polipet's 5" class="w-full h-full object-cover block shrink-0" referrerpolicy="no-referrer">
+                        </div>
+                        
+                        <!-- Controles Prev/Next (Siempre visibles, estilizados) -->
+                        <button type="button" aria-label="Anterior" class="slider-prev absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-white text-brand-blue rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.1)] hover:scale-110 hover:bg-japandi-bg transition-all duration-300 z-20 border border-brand-gray/10">
+                            <i data-lucide="chevron-left" class="w-5 h-5 pr-0.5"></i>
+                        </button>
+                        <button type="button" aria-label="Siguiente" class="slider-next absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-white text-brand-blue rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.1)] hover:scale-110 hover:bg-japandi-bg transition-all duration-300 z-20 border border-brand-gray/10">
+                            <i data-lucide="chevron-right" class="w-5 h-5 pl-0.5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE NUEVO: SERVICIOS -->
+    <section id="servicios" class="py-24 px-6 bg-japandi-bg">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <p class="text-brand-teal font-sans tracking-[0.2em] text-sm uppercase mb-4 font-semibold">Cuidado Integral</p>
+                <h2 class="text-3xl md:text-5xl font-serif text-brand-blue mb-6">Nuestros Servicios</h2>
+                <div class="w-12 h-[2px] bg-brand-teal mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+                
+                <!-- Servicio 1 -->
+                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in">
+                    <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
+                        <i data-lucide="scan" stroke-width="1.5" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-medium text-brand-blue text-sm mb-3">Ecografía Especializada</h3>
+                    <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
+                        <span>Más Info</span>
+                        <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                    </div>
+                </div>
+
+                <!-- Servicio 2 -->
+                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 50ms;">
+                    <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
+                        <i data-lucide="bed" stroke-width="1.5" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-medium text-brand-blue text-sm mb-3">Hospitalización</h3>
+                    <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
+                        <span>Más Info</span>
+                        <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                    </div>
+                </div>
+
+                <!-- Servicio 3 -->
+                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
+                        <i data-lucide="sparkles" stroke-width="1.5" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-medium text-brand-blue text-sm mb-3">Profilaxis</h3>
+                    <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
+                        <span>Más Info</span>
+                        <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                    </div>
+                </div>
+
+                <!-- Servicio 4 -->
+                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 150ms;">
+                    <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
+                        <i data-lucide="bath" stroke-width="1.5" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-medium text-brand-blue text-sm mb-3">Baños Medicados</h3>
+                    <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
+                        <span>Más Info</span>
+                        <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                    </div>
+                </div>
+
+                <!-- Servicio 5 -->
+                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
+                        <i data-lucide="stethoscope" stroke-width="1.5" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-medium text-brand-blue text-sm mb-3">Consultas</h3>
+                    <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
+                        <span>Más Info</span>
+                        <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                    </div>
+                </div>
+
+                <!-- Servicio 6 -->
+                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 250ms;">
+                    <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
+                        <i data-lucide="wind" stroke-width="1.5" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-medium text-brand-blue text-sm mb-3">Nebulización</h3>
+                    <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
+                        <span>Más Info</span>
+                        <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                    </div>
+                </div>
+
+                <!-- Servicio 7 -->
+                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 300ms;">
+                    <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
+                        <i data-lucide="syringe" stroke-width="1.5" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-medium text-brand-blue text-sm mb-3">Vacunación</h3>
+                    <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
+                        <span>Más Info</span>
+                        <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                    </div>
+                </div>
+
+                <!-- Servicio 8 -->
+                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 350ms;">
+                    <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
+                        <i data-lucide="activity" stroke-width="1.5" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-medium text-brand-blue text-sm mb-3">Procedimientos</h3>
+                    <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
+                        <span>Más Info</span>
+                        <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                    </div>
+                </div>
+
+                <!-- Servicio 9 -->
+                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 400ms;">
+                    <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
+                        <i data-lucide="gauge" stroke-width="1.5" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-medium text-brand-blue text-sm mb-3">Toma de Presiones</h3>
+                    <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
+                        <span>Más Info</span>
+                        <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                    </div>
+                </div>
+
+                <!-- Servicio 10 -->
+                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 450ms;">
+                    <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
+                        <i data-lucide="heart-pulse" stroke-width="1.5" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-medium text-brand-blue text-sm mb-3">Ecocardiografía</h3>
+                    <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
+                        <span>Más Info</span>
+                        <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE 3: EL MECANISMO -->
+    <section class="py-20 bg-japandi-light/50 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+                <!-- Paso 1 -->
+                <div class="flex flex-col items-center text-center fade-in">
+                    <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-brand-teal mb-6 shadow-sm">
+                        <i data-lucide="stethoscope" stroke-width="1.5" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-serif text-xl text-brand-blue mb-4">Medicina Preventiva</h3>
+                    <p class="text-brand-gray font-light leading-relaxed text-sm">
+                        En nuestra <strong>Clínica Veterinaria</strong>, resolvemos tus dudas sobre vacunación, <strong>desparasitación</strong> y alimentación. A través de <strong>consultas médicas</strong> preventivas, evitamos enfermedades complejas. También contamos con servicio de <strong>domicilios</strong> y un completo <strong>PetShop</strong> para el cuidado en casa.
+                    </p>
+                </div>
+                <!-- Paso 2 -->
+                <div class="flex flex-col items-center text-center fade-in" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-brand-teal mb-6 shadow-sm">
+                        <i data-lucide="scan" stroke-width="1.5" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-serif text-xl text-brand-blue mb-4">Imágenes Diagnósticas</h3>
+                    <p class="text-brand-gray font-light leading-relaxed text-sm">
+                        Realizamos radiografías y <strong>ecografías</strong> preventivas, incluyendo <strong>ecografía abdominal</strong> y <strong>ultrasonido</strong> detallado. Esto nos permite detectar enfermedades osteoarticulares, tumores o problemas internos de forma temprana y precisa antes de requerir <strong>procedimientos</strong> mayores.
+                    </p>
+                </div>
+                <!-- Paso 3 -->
+                <div class="flex flex-col items-center text-center fade-in" style="transition-delay: 400ms;">
+                    <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-brand-teal mb-6 shadow-sm">
+                        <i data-lucide="heart-handshake" stroke-width="1.5" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-serif text-xl text-brand-blue mb-4">Calidad y Confianza</h3>
+                    <p class="text-brand-gray font-light leading-relaxed text-sm">
+                        Brindamos un servicio de excelencia enfocado en el bienestar de tu mascota, desde atención básica hasta <strong>procedimientos</strong> especializados. Ante cualquier duda, la mejor decisión siempre será consultar a tiempo con nuestro equipo médico experto.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 fade-in" style="transition-delay: 600ms;">
+                 <p class="text-brand-blue font-medium mb-6">¿Y tú ya trajiste a tu peludito? Estás a tiempo. ¡Te esperamos!</p>
+                 <a href="#reservas" class="inline-block bg-brand-blue text-white font-sans tracking-[0.2em] uppercase text-xs md:text-sm px-10 py-4 rounded-lg hover:bg-brand-teal hover:shadow-lg transition-all duration-300">
+                    Agenda tu cita
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE 4: CONFIANZA Y PRUEBA SOCIAL -->
+    <section id="testimonios" class="pt-24 pb-12 px-6 bg-japandi-bg">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <div class="inline-flex items-center justify-center gap-2 bg-white px-6 py-2 rounded-full shadow-sm mb-6 border border-brand-gray/10">
+                    <span class="text-2xl font-serif text-brand-blue font-semibold">5.0</span>
+                    <div class="flex gap-0.5">
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-5 h-5"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-5 h-5"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-5 h-5"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-5 h-5"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-5 h-5"></i>
+                    </div>
+                </div>
+                <h2 class="text-3xl font-serif text-brand-blue mb-4">Familias Felices y Tranquilas</h2>
+                <p class="text-brand-gray font-light">Nuestra reputación perfecta en Google Maps respalda nuestro compromiso.</p>
+            </div>
+
+            <!-- Grid tipo Google Maps -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] fade-in">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-brand-teal text-white flex items-center justify-center font-serif text-lg">J</div>
+                        <div>
+                            <h4 class="font-medium text-brand-blue text-sm">Juan Carlos Velasquez</h4>
+                            <p class="text-xs text-brand-gray">6 reseñas</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-1 mb-4">
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-4 h-4"></i>
+                    </div>
+                    <p class="text-sm italic text-japandi-text font-light leading-relaxed mb-4">
+                        "Excelente centro médico, el Dr. Pedro muy diligente, amable, acertado en sus diagnósticos, al igual que el resto del personal, muy buen servicio , buen trato hacia las mascotas y propietarios , ¡súper recomendado !"
+                    </p>
+                    <p class="text-xs text-brand-gray">En Google</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] fade-in" style="transition-delay: 150ms;">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-[#C49755] text-white flex items-center justify-center font-serif text-lg">D</div>
+                        <div>
+                            <h4 class="font-medium text-brand-blue text-sm">Dora Pedraza</h4>
+                            <p class="text-xs text-brand-gray">Local Guide · 22 reseñas</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-1 mb-4">
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-4 h-4"></i>
+                    </div>
+                    <p class="text-sm italic text-japandi-text font-light leading-relaxed mb-4">
+                        "Excelente atención con mi gatito, explicación detallada y orientación con dudas. Excelente servicio."
+                    </p>
+                    <p class="text-xs text-brand-gray">En Google</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] fade-in hidden lg:block" style="transition-delay: 300ms;">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-brand-blue text-white flex items-center justify-center font-serif text-lg">M</div>
+                        <div>
+                            <h4 class="font-medium text-brand-blue text-sm">Manuel Maldonado</h4>
+                            <p class="text-xs text-brand-gray">1 reseña</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-1 mb-4">
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-4 h-4"></i>
+                        <i data-lucide="star" fill="#FBBC04" color="#FBBC04" class="w-4 h-4"></i>
+                    </div>
+                    <p class="text-sm italic text-japandi-text font-light leading-relaxed mb-4">
+                        "Excelente servicio. Muy buena atención. Dr pedro Laura muchas gracias."
+                    </p>
+                    <p class="text-xs text-brand-gray">En Google</p>
+                </div>
+            </div>
+
+            <div class="text-center fade-in">
+                <a href="https://maps.app.goo.gl/cNSr4esA34yTYxmx6" target="_blank" class="inline-flex items-center gap-2 text-sm font-medium text-brand-blue hover:text-brand-teal transition-colors pb-1 border-b border-brand-blue hover:border-brand-teal">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                    Ver todas las reseñas en Google Maps
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE 6: ACCIÓN DOMINANTE (FORMULARIO) -->
+    <section id="reservas" class="py-24 px-6 bg-japandi-bg relative">
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="bg-white rounded-2xl p-8 md:p-14 shadow-[0_20px_60px_-15px_rgba(11,34,82,0.1)] border border-brand-gray/5 fade-in">
+                
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-serif text-brand-blue mb-3">Agenda tu Cita</h2>
+                    <p class="text-japandi-text/70 font-light text-sm">Selecciona el motivo de tu visita y la fecha deseada. Nuestro equipo te confirmará el horario.</p>
+                </div>
+
+                <form id="reserva-form" class="space-y-6">
+                    <!-- Fila 1: Fecha y Tipo de Servicio -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Fecha de Cita -->
+                        <div class="space-y-2">
+                            <label class="text-xs uppercase tracking-wider text-brand-gray font-medium">Fecha Deseada</label>
+                            <div class="date-input-wrapper bg-japandi-bg border border-brand-gray/20 rounded-lg p-4 hover:border-brand-teal transition-colors">
+                                <input type="text" id="checkin" required>
+                                <div class="flex items-center gap-3 text-brand-blue pointer-events-none">
+                                    <i data-lucide="calendar-days" class="w-5 h-5 text-brand-teal"></i>
+                                    <span id="checkin-display" class="font-light">Seleccionar fecha</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tipo de Servicio -->
+                        <div class="space-y-2">
+                            <label class="text-xs uppercase tracking-wider text-brand-gray font-medium">Motivo de la Cita</label>
+                            <select id="motivo" class="w-full bg-japandi-bg border border-brand-gray/20 rounded-lg p-4 font-light text-brand-blue focus:outline-none focus:border-brand-teal transition-colors appearance-none" required>
+                                <option value="" disabled selected>Seleccione un servicio</option>
+                                <option value="Consulta">Consultas</option>
+                                <option value="Ecografía Especializada">Ecografía Especializada</option>
+                                <option value="Ecocardiografía">Ecocardiografía</option>
+                                <option value="Hospitalización">Hospitalización</option>
+                                <option value="Profilaxis Dental">Profilaxis Dental</option>
+                                <option value="Vacunación">Vacunación</option>
+                                <option value="Baños Medicados">Baños Medicados</option>
+                                <option value="Nebulización">Nebulización</option>
+                                <option value="Toma de Presiones">Toma de Presiones</option>
+                                <option value="Procedimientos">Procedimientos</option>
+                                <option value="Otro Motivo">Otro Motivo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Fila 2: Datos y Mascota -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs uppercase tracking-wider text-brand-gray font-medium">Nombre del Propietario</label>
+                            <input type="text" id="nombre" placeholder="Ej. Ana García" class="w-full bg-japandi-bg border border-brand-gray/20 rounded-lg p-4 font-light text-brand-blue focus:outline-none focus:border-brand-teal transition-colors" required>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs uppercase tracking-wider text-brand-gray font-medium">Tipo de Mascota</label>
+                            <select id="tipo-mascota" class="w-full bg-japandi-bg border border-brand-gray/20 rounded-lg p-4 font-light text-brand-blue focus:outline-none focus:border-brand-teal transition-colors appearance-none" required>
+                                <option value="" disabled selected>Seleccione opción</option>
+                                <option value="Canino (Perro)">Canino (Perro)</option>
+                                <option value="Felino (Gato)">Felino (Gato)</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Botón -->
+                    <div class="pt-6">
+                        <button type="submit" class="w-full bg-brand-blue text-white py-5 rounded-lg font-sans tracking-[0.3em] uppercase text-sm hover:bg-brand-teal hover:shadow-lg transition-all duration-300">
+                            Solicitar Cita
+                        </button>
+                        <p class="text-center mt-4 text-[11px] text-brand-gray font-light">
+                            Al solicitar la cita, aceptas nuestros <a href="#" class="underline hover:text-brand-teal">Términos y Condiciones</a>. Nos comunicaremos contigo para confirmar la hora exacta.
+                        </p>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE 7: REINFORCEMENT (FAQ) -->
+    <section class="py-24 px-6 bg-japandi-bg">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl font-serif text-brand-blue">Preguntas Frecuentes</h2>
+            </div>
+
+            <div class="space-y-4 fade-in">
+                <!-- FAQ 1 -->
+                <div class="border-b border-brand-gray/20 pb-4">
+                    <button class="faq-toggle w-full flex justify-between items-center py-4 text-left focus:outline-none group">
+                        <span class="font-medium text-brand-blue group-hover:text-brand-teal transition-colors">¿Qué sucede si hay una emergencia médica?</span>
+                        <i data-lucide="plus" class="w-5 h-5 text-brand-gray group-hover:text-brand-teal transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content">
+                        <p class="text-sm text-japandi-text font-light pb-4 leading-relaxed">
+                            Al ser un centro veterinario integrado, contamos con médicos de guardia 24/7, sala de urgencias y equipos de diagnóstico. Nos comunicaremos contigo inmediatamente, pero actuaremos de urgencia si la vida del animal lo requiere, bajo el protocolo previamente autorizado.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="border-b border-brand-gray/20 pb-4">
+                    <button class="faq-toggle w-full flex justify-between items-center py-4 text-left focus:outline-none group">
+                        <span class="font-medium text-brand-blue group-hover:text-brand-teal transition-colors">¿Debo llevar la comida de mi mascota?</span>
+                        <i data-lucide="plus" class="w-5 h-5 text-brand-gray group-hover:text-brand-teal transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content">
+                        <p class="text-sm text-japandi-text font-light pb-4 leading-relaxed">
+                            Sí, es altamente recomendable para evitar problemas gastrointestinales por cambios abruptos de dieta. Solicitamos que traigas la porción exacta para los días de estadía. En caso contrario, ofrecemos alimento super premium con cargo adicional.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="border-b border-brand-gray/20 pb-4">
+                    <button class="faq-toggle w-full flex justify-between items-center py-4 text-left focus:outline-none group">
+                        <span class="font-medium text-brand-blue group-hover:text-brand-teal transition-colors">¿Tienen espacios compartidos con otros animales?</span>
+                        <i data-lucide="plus" class="w-5 h-5 text-brand-gray group-hover:text-brand-teal transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content">
+                        <p class="text-sm text-japandi-text font-light pb-4 leading-relaxed">
+                            El descanso es individual en suites privadas para garantizar seguridad y paz. Las áreas de juego se utilizan de forma escalonada según el temperamento y tamaño, y bajo estricta supervisión, evitando el estrés del contacto masivo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER PRINCIPAL RENOVADO -->
+    <footer class="bg-brand-blue text-white pt-24 pb-12 px-6">
+        <div class="max-w-7xl mx-auto">
+            <!-- Grid del Footer -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16 border-b border-white/10 pb-16">
+                
+                <!-- Columna 1: Marca y Descripción -->
+                <div class="col-span-1 lg:col-span-1 fade-in">
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="https://i.postimg.cc/VLh2ymVb/logo.png" alt="Logo Polipet's" class="h-10 w-auto brightness-0 invert">
+                        <span class="font-sans font-light tracking-widest text-xl uppercase">Polipet´s</span>
+                    </div>
+                    <p class="text-white/70 font-light text-sm leading-relaxed mb-8 pr-4">
+                        Centro veterinario y petshop comprometido con el bienestar integral, diagnóstico preciso y el amor incondicional hacia tus mascotas.
+                    </p>
+                    <!-- Redes Sociales -->
+                    <div class="flex gap-4">
+                        <a href="https://www.instagram.com/polipets1" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-teal transition-colors duration-300 group">
+                            <!-- Icono SVG de Instagram garantizado -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/80 group-hover:text-white">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="https://www.tiktok.com/@polipets1?_r=1" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-teal transition-colors duration-300 group">
+                            <!-- Icono SVG personalizado para TikTok ya que Lucide no lo tiene por defecto -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/80 group-hover:text-white">
+                                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                            </svg>
+                        </a>
+                        <a href="https://wa.me/573124849928" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#25D366] transition-colors duration-300 group">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="text-white/80 group-hover:text-white">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Enlaces Rápidos -->
+                <div class="col-span-1 fade-in" style="transition-delay: 100ms;">
+                    <h4 class="font-serif text-lg mb-6 tracking-wide text-white">Explorar</h4>
+                    <ul class="space-y-4 text-sm font-light text-white/70">
+                        <li><a href="#sobre-nosotros" class="hover:text-brand-teal transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Quiénes Somos</a></li>
+                        <li><a href="#servicios" class="hover:text-brand-teal transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Nuestros Servicios</a></li>
+                        <li><a href="#testimonios" class="hover:text-brand-teal transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Testimonios</a></li>
+                        <li><a href="#reservas" class="hover:text-brand-teal transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Agendar Cita</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: Información de Contacto -->
+                <div class="col-span-1 fade-in" style="transition-delay: 200ms;">
+                    <h4 class="font-serif text-lg mb-6 tracking-wide text-white">Contacto</h4>
+                    <ul class="space-y-5 text-sm font-light text-white/70">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-brand-teal shrink-0 mt-0.5"></i>
+                            <span>Carrera 6, Avenida principal<br>#n 2 sur 26<br>Cajicá, Cundinamarca</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-brand-teal shrink-0"></i>
+                            <a href="tel:+573124849928" class="hover:text-white transition-colors">312 484 99 28</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="mail" class="w-5 h-5 text-brand-teal shrink-0"></i>
+                            <a href="mailto:polipets1@gmail.com" class="hover:text-white transition-colors">polipets1@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Columna 4: Horarios -->
+                <div class="col-span-1 fade-in" style="transition-delay: 300ms;">
+                    <h4 class="font-serif text-lg mb-6 tracking-wide text-white">Horario de Atención</h4>
+                    <div class="bg-white/5 rounded-xl p-5 border border-white/10">
+                        <div class="flex items-center gap-3 mb-4 text-brand-teal">
+                            <i data-lucide="clock" class="w-5 h-5"></i>
+                            <span class="font-medium text-white text-sm">Agenda tu cita</span>
+                        </div>
+                        <ul class="space-y-3 text-sm font-light text-white/70">
+                            <li class="flex justify-between items-center border-b border-white/10 pb-2">
+                                <span>Lunes a Sábado</span>
+                                <span class="font-medium text-white">8:00 AM - 6:00 PM</span>
+                            </li>
+                            <li class="flex justify-between items-center pt-1">
+                                <span>Domingos y Festivos</span>
+                                <span class="text-brand-gray text-xs italic">Cerrado / Solo Urgencias</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CIERRE LEGAL (SUB-FOOTER) Integrado -->
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40 font-light fade-in" style="transition-delay: 400ms;">
+                <p>&copy; 2026 Centro Veterinario Polipet´s. Todos los derechos reservados.</p>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <a href="#" class="hover:text-white transition-opacity">Términos y Condiciones</a>
+                    <a href="#" class="hover:text-white transition-opacity">Aviso de Privacidad</a>
+                    <a href="https://maps.app.goo.gl/cNSr4esA34yTYxmx6" target="_blank" class="hover:text-white transition-opacity">Ver en Google Maps</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Flatpickr Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
+
+    <!-- SCRIPTS LÓGICOS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicializar Iconos Lucide
+            lucide.createIcons();
+
+            // 1. Navbar Scroll Effect
+            const navbar = document.getElementById('navbar');
+            const logo = document.querySelector('.nav-logo');
+            const navLinks = document.querySelectorAll('#navbar nav a:not(.nav-cta)'); // Excluir el CTA para estilizarlo aparte
+            const navCta = document.querySelector('.nav-cta');
+            const hamburgerLines = document.querySelectorAll('.hamburger-line');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                    navbar.classList.replace('py-4', 'py-3');
+                    
+                    // Actualizar color de texto e imagen del logo
+                    if (logo) {
+                        logo.classList.remove('text-white');
+                        logo.classList.add('text-brand-blue');
+                    }
+                    const headerImg = document.querySelector('.header-logo-img');
+                    if(headerImg) headerImg.classList.remove('brightness-0', 'invert');
+
+                    // Cambiar enlaces a azul oscuro
+                    navLinks.forEach(link => {
+                        link.classList.remove('text-white');
+                        link.classList.add('text-brand-blue');
+                    });
+
+                    // Estilizar el botón CTA al hacer scroll
+                    if(navCta) {
+                        navCta.classList.remove('text-white', 'border-white/30', 'hover:bg-white', 'hover:text-brand-blue');
+                        navCta.classList.add('text-brand-blue', 'border-brand-blue', 'hover:bg-brand-blue', 'hover:text-white');
+                    }
+                    
+                    hamburgerLines.forEach(line => {
+                        line.classList.remove('bg-white');
+                        line.classList.add('bg-brand-blue');
+                    });
+                } else {
+                    navbar.classList.remove('scrolled');
+                    navbar.classList.replace('py-3', 'py-4');
+                    
+                    // Restaurar color de texto e imagen del logo a blanco
+                    if (logo) {
+                        logo.classList.remove('text-brand-blue');
+                        logo.classList.add('text-white');
+                    }
+                    const headerImg = document.querySelector('.header-logo-img');
+                    if(headerImg) headerImg.classList.add('brightness-0', 'invert');
+
+                    // Restaurar enlaces a blanco
+                    navLinks.forEach(link => {
+                        link.classList.remove('text-brand-blue');
+                        link.classList.add('text-white');
+                    });
+
+                    // Restaurar el botón CTA al inicio
+                    if(navCta) {
+                        navCta.classList.remove('text-brand-blue', 'border-brand-blue', 'hover:bg-brand-blue', 'hover:text-white');
+                        navCta.classList.add('text-white', 'border-white/30', 'hover:bg-white', 'hover:text-brand-blue');
+                    }
+                    
+                    hamburgerLines.forEach(line => {
+                        line.classList.remove('bg-brand-blue');
+                        line.classList.add('bg-white');
+                    });
+                }
+            });
+
+            // 2. Mobile Menu Toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.menu-link');
+            let isMenuOpen = false;
+
+            function toggleMenu() {
+                isMenuOpen = !isMenuOpen;
+                menuToggle.classList.toggle('menu-open');
+                
+                if (isMenuOpen) {
+                    mobileMenu.classList.remove('translate-x-full');
+                    mobileMenu.classList.add('translate-x-0');
+                    // Forzar color oscuro en hamburguesa al abrir sobre fondo claro
+                    hamburgerLines.forEach(line => {
+                        line.style.backgroundColor = '#0B2252'; 
+                    });
+                } else {
+                    mobileMenu.classList.add('translate-x-full');
+                    mobileMenu.classList.remove('translate-x-0');
+                    // Resetear color
+                    setTimeout(() => {
+                        hamburgerLines.forEach(line => {
+                            line.style.backgroundColor = ''; 
+                        });
+                    }, 400);
+                }
+            }
+
+            menuToggle.addEventListener('click', toggleMenu);
+            mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+            // 3. Animaciones Fade-In con Intersection Observer
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Dejar de observar para mejorar rendimiento
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(element => {
+                observer.observe(element);
+            });
+
+            // 4. Lógica Inteligente del Calendario de Reservas (Flatpickr)
+            const checkinInput = document.getElementById('checkin');
+            const checkinDisplay = document.getElementById('checkin-display');
+
+            // Formateador elegante de fechas en español
+            const formatearFecha = (fecha) => {
+                const opciones = { day: 'numeric', month: 'long', year: 'numeric' };
+                return fecha.toLocaleDateString('es-ES', opciones);
+            };
+
+            // Inicialización de Flatpickr
+            flatpickr("#checkin", {
+                locale: "es",
+                minDate: "today",
+                defaultDate: "today",
+                disableMobile: true, // Forzar la UI personalizada en móviles para consistencia
+                onChange: function(selectedDates) {
+                    if (selectedDates.length > 0) {
+                        checkinDisplay.textContent = formatearFecha(selectedDates[0]);
+                    }
+                }
+            });
+
+            // Establecer texto inicial
+            checkinDisplay.textContent = formatearFecha(new Date());
+
+            // 5. Lógica del Acordeón FAQ
+            const faqToggles = document.querySelectorAll('.faq-toggle');
+            
+            faqToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const content = toggle.nextElementSibling;
+                    const icon = toggle.querySelector('i');
+                    const isOpen = content.style.maxHeight;
+
+                    // Cerrar todos los demás
+                    document.querySelectorAll('.faq-content').forEach(item => {
+                        item.style.maxHeight = null;
+                    });
+                    document.querySelectorAll('.faq-toggle i').forEach(item => {
+                        item.style.transform = 'rotate(0deg)';
+                    });
+
+                    // Si no estaba abierto, abrir el actual
+                    if (!isOpen) {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        icon.style.transform = 'rotate(45deg)';
+                    }
+                });
+            });
+
+            // 6. Carrusel Sobre Nosotros (Deslizamiento horizontal + controles)
+            const sliderContainer = document.getElementById('about-carousel');
+            const sliderTrack = document.querySelector('#about-carousel .slider-track');
+            
+            if (sliderContainer && sliderTrack) {
+                const slides = sliderTrack.querySelectorAll('img');
+                const prevBtn = sliderContainer.querySelector('.slider-prev');
+                const nextBtn = sliderContainer.querySelector('.slider-next');
+                
+                let currentImageIndex = 0;
+                const totalSlides = slides.length;
+                let autoSlideInterval;
+                
+                function updateSlider() {
+                    sliderTrack.style.transform = `translateX(-${currentImageIndex * 100}%)`;
+                }
+                
+                function nextSlide() {
+                    currentImageIndex = (currentImageIndex + 1) % totalSlides;
+                    updateSlider();
+                }
+                
+                function prevSlide() {
+                    currentImageIndex = (currentImageIndex - 1 + totalSlides) % totalSlides;
+                    updateSlider();
+                }
+                
+                function startAutoPlay() {
+                    autoSlideInterval = setInterval(nextSlide, 8000);
+                }
+                
+                function resetAutoPlay() {
+                    clearInterval(autoSlideInterval);
+                    startAutoPlay();
+                }
+                
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', () => {
+                        nextSlide();
+                        resetAutoPlay();
+                    });
+                }
+                
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', () => {
+                        prevSlide();
+                        resetAutoPlay();
+                    });
+                }
+                
+                // Pausar la animación cuando el cursor está sobre el carrusel
+                sliderContainer.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+                sliderContainer.addEventListener('mouseleave', startAutoPlay);
+                
+                // Iniciar carrusel
+                startAutoPlay();
+            }
+
+            // 7. Enviar formulario a WhatsApp
+            const reservaForm = document.getElementById('reserva-form');
+            if (reservaForm) {
+                reservaForm.addEventListener('submit', function(e) {
+                    e.preventDefault(); // Prevenir el envío tradicional del formulario
+
+                    // Capturar los valores
+                    const fecha = checkinDisplay.textContent;
+                    const motivo = document.getElementById('motivo').value;
+                    const nombre = document.getElementById('nombre').value;
+                    const tipoMascota = document.getElementById('tipo-mascota').value;
+
+                    // Validar que se haya seleccionado una fecha válida (no el placeholder)
+                    if (fecha === "Seleccionar fecha") {
+                        alert("Por favor, selecciona una fecha para tu cita.");
+                        return;
+                    }
+
+                    // Construir el mensaje
+                    const numeroWhatsApp = "573124849928"; // Número de Polipet's
+                    const mensaje = `¡Hola Polipet's! 👋\n\nQuisiera solicitar una cita con los siguientes datos:\n\n👤 *Propietario:* ${nombre}\n🐾 *Tipo de Mascota:* ${tipoMascota}\n📅 *Fecha Deseada:* ${fecha}\n🩺 *Motivo:* ${motivo}\n\nQuedo atento(a) a su confirmación. ¡Gracias!`;
+
+                    // Codificar el mensaje para la URL
+                    const mensajeCodificado = encodeURIComponent(mensaje);
+
+                    // Crear la URL de WhatsApp y abrirla en una nueva pestaña
+                    const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
+                    window.open(urlWhatsApp, '_blank');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
