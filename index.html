@@ -761,22 +761,25 @@
         </div>
     </section>
 
-    <!-- MODAL DE SERVICIOS (CONTENEDOR DE VIDEO / SLIDER) -->
+    <!-- MODAL DE SERVICIOS (CONTENEDOR DE VIDEO) -->
     <div id="service-modal" class="fixed inset-0 z-[110] hidden items-center justify-center">
         <!-- Fondo oscuro (Overlay) -->
         <div class="absolute inset-0 bg-brand-blue/90 backdrop-blur-sm modal-overlay transition-opacity duration-300 opacity-0 cursor-pointer"></div>
         <!-- Contenido del Modal -->
-        <div class="relative bg-white rounded-2xl w-[90%] max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl modal-content transform scale-95 opacity-0 transition-all duration-300 z-10 flex flex-col">
+        <div class="relative bg-white rounded-2xl w-[90%] max-w-4xl overflow-hidden shadow-2xl modal-content transform scale-95 opacity-0 transition-all duration-300 z-10 flex flex-col">
             <!-- Cabecera -->
-            <div class="px-6 py-4 border-b border-brand-gray/10 flex justify-between items-center bg-white z-20 sticky top-0">
+            <div class="px-6 py-4 border-b border-brand-gray/10 flex justify-between items-center bg-white z-10">
                 <h3 id="modal-title" class="text-xl md:text-2xl font-serif text-brand-blue font-medium">Título del Servicio</h3>
                 <button type="button" id="close-modal" class="text-brand-gray hover:text-brand-teal transition-colors p-1 rounded-full hover:bg-japandi-light outline-none">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
             </div>
-            <!-- Contenedor del reproductor / contenido dinámico -->
-            <div id="modal-content-body" class="w-full flex-grow p-4 md:p-6 flex flex-col bg-japandi-bg/30">
-                <!-- El contenido (carrusel) se inyectará aquí desde JS -->
+            <!-- Contenedor del reproductor -->
+            <div class="w-full aspect-video bg-black relative flex-grow">
+                <video id="modal-video" class="w-full h-full object-contain" controls controlsList="nodownload" playsinline webkit-playsinline>
+                    <source src="" type="video/mp4">
+                    Tu navegador no soporta la etiqueta de video.
+                </video>
             </div>
         </div>
     </div>
@@ -1174,77 +1177,26 @@
                 });
             }
             
-            // 8. Lógica del Modal de Servicios (Videos e Imágenes con Slider Integrado)
+            // 8. Lógica del Modal de Servicios (Videos)
             const serviceData = {
-                'ecografia': { 
-                    title: 'Ecografía Especializada', 
-                    media: [
-                        { type: 'video', src: 'ecografia1.mp4' },
-                        { type: 'image', src: 'ecografia2.jpeg' },
-                        { type: 'image', src: 'ecografia3.jpeg' },
-                        { type: 'video', src: 'ecografia4.mp4' }
-                    ]
-                },
-                'hospitalizacion': { title: 'Hospitalización', media: [{ type: 'video', src: 'video_hospitalizacion.mp4' }] },
-                'profilaxis': { title: 'Profilaxis', media: [{ type: 'video', src: 'video_profilaxis.mp4' }] },
-                'banos': { title: 'Baños Medicados', media: [{ type: 'video', src: 'video_banos.mp4' }] },
-                'consultas': { title: 'Consultas', media: [{ type: 'video', src: 'video_consultas.mp4' }] },
-                'nebulizacion': { title: 'Nebulización', media: [{ type: 'video', src: 'video_nebulizacion.mp4' }] },
-                'vacunacion': { title: 'Vacunación', media: [{ type: 'video', src: 'video_vacunacion.mp4' }] },
-                'procedimientos': { title: 'Procedimientos', media: [{ type: 'video', src: 'video_procedimientos.mp4' }] },
-                'presiones': { title: 'Toma de Presiones', media: [{ type: 'video', src: 'video_presiones.mp4' }] },
-                'ecocardiografia': { title: 'Ecocardiografía', media: [{ type: 'video', src: 'video_ecocardiografia.mp4' }] }
+                'ecografia': { title: 'Ecografía Especializada', videoSrc: 'video_ecografia.mp4' },
+                'hospitalizacion': { title: 'Hospitalización', videoSrc: 'video_hospitalizacion.mp4' },
+                'profilaxis': { title: 'Profilaxis', videoSrc: 'video_profilaxis.mp4' },
+                'banos': { title: 'Baños Medicados', videoSrc: 'video_banos.mp4' },
+                'consultas': { title: 'Consultas', videoSrc: 'video_consultas.mp4' },
+                'nebulizacion': { title: 'Nebulización', videoSrc: 'video_nebulizacion.mp4' },
+                'vacunacion': { title: 'Vacunación', videoSrc: 'video_vacunacion.mp4' },
+                'procedimientos': { title: 'Procedimientos', videoSrc: 'video_procedimientos.mp4' },
+                'presiones': { title: 'Toma de Presiones', videoSrc: 'video_presiones.mp4' },
+                'ecocardiografia': { title: 'Ecocardiografía', videoSrc: 'video_ecocardiografia.mp4' }
             };
 
             const serviceModal = document.getElementById('service-modal');
-            
-            // Variables de control global para el slider del modal
-            window.currentModalMediaIndex = 0;
-            
-            // Funciones de navegación (disponibles en window para los atributos onclick del HTML)
-            window.updateModalMediaDisplay = function() {
-                const slides = document.querySelectorAll('.modal-media-slide');
-                if(!slides.length) return;
-                
-                slides.forEach((slide, index) => {
-                    const video = slide.querySelector('video');
-                    if (index === window.currentModalMediaIndex) {
-                        slide.classList.remove('hidden');
-                        slide.classList.add('flex');
-                        if (video) video.play().catch(e => console.log("Se requiere interacción del usuario."));
-                    } else {
-                        slide.classList.remove('flex');
-                        slide.classList.add('hidden');
-                        if (video) video.pause(); // Asegura detener videos de otros slides
-                    }
-                });
-
-                // Actualizar el indicador numérico
-                const indicator = document.getElementById('modal-media-indicator');
-                if (indicator) {
-                    indicator.textContent = `${window.currentModalMediaIndex + 1} / ${slides.length}`;
-                }
-            };
-
-            window.nextModalMedia = function() {
-                const slides = document.querySelectorAll('.modal-media-slide');
-                if(!slides.length) return;
-                window.currentModalMediaIndex = (window.currentModalMediaIndex + 1) % slides.length;
-                window.updateModalMediaDisplay();
-            };
-
-            window.prevModalMedia = function() {
-                const slides = document.querySelectorAll('.modal-media-slide');
-                if(!slides.length) return;
-                window.currentModalMediaIndex = (window.currentModalMediaIndex - 1 + slides.length) % slides.length;
-                window.updateModalMediaDisplay();
-            };
-
             if (serviceModal) {
                 const modalOverlay = serviceModal.querySelector('.modal-overlay');
                 const modalContent = serviceModal.querySelector('.modal-content');
                 const modalTitle = document.getElementById('modal-title');
-                const modalContentBody = document.getElementById('modal-content-body');
+                const modalVideo = document.getElementById('modal-video');
                 const closeModalBtn = document.getElementById('close-modal');
 
                 window.openServiceModal = function(serviceId) {
@@ -1252,77 +1204,20 @@
                     if(!data) return;
 
                     modalTitle.textContent = data.title;
-                    window.currentModalMediaIndex = 0; // Resetear slider al abrir
+                    modalVideo.src = data.videoSrc; // Carga el video correspondiente
                     
-                    let sliderHtml = '';
-                    if (data.media && data.media.length > 0) {
-                        // Contenedor principal relativo con altura fija para los slides absolutos
-                        sliderHtml += `<div class="relative w-full h-[50vh] md:h-[65vh] rounded-xl overflow-hidden shadow-inner bg-black/5 flex items-center justify-center group">`;
-                        
-                        // Generar todos los slides
-                        data.media.forEach((item, index) => {
-                            const visibilityClass = index === 0 ? 'flex' : 'hidden';
-                            if (item.type === 'video') {
-                                sliderHtml += `
-                                    <div class="modal-media-slide absolute inset-0 ${visibilityClass} items-center justify-center bg-black" data-index="${index}">
-                                        <video class="w-full h-full object-contain" controls controlsList="nodownload" preload="metadata">
-                                            <source src="${item.src}" type="video/mp4">
-                                            Tu navegador no soporta la etiqueta de video.
-                                        </video>
-                                    </div>
-                                `;
-                            } else if (item.type === 'image') {
-                                sliderHtml += `
-                                    <div class="modal-media-slide absolute inset-0 ${visibilityClass} items-center justify-center bg-japandi-light/30 backdrop-blur-md" data-index="${index}">
-                                        <img src="${item.src}" alt="${data.title}" class="max-w-full max-h-full object-contain drop-shadow-lg">
-                                    </div>
-                                `;
-                            }
-                        });
-
-                        // Agregar botones de flechas e indicador SOLO si hay más de 1 archivo
-                        if (data.media.length > 1) {
-                            sliderHtml += `
-                                <!-- Flecha Izquierda -->
-                                <button type="button" onclick="prevModalMedia()" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white/95 text-brand-blue rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:scale-105 hover:bg-white transition-all duration-300 z-20 focus:outline-none opacity-80 hover:opacity-100 group-hover:opacity-100">
-                                    <i data-lucide="chevron-left" class="w-6 h-6 md:w-7 md:h-7 pr-0.5"></i>
-                                </button>
-                                
-                                <!-- Flecha Derecha -->
-                                <button type="button" onclick="nextModalMedia()" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white/95 text-brand-blue rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:scale-105 hover:bg-white transition-all duration-300 z-20 focus:outline-none opacity-80 hover:opacity-100 group-hover:opacity-100">
-                                    <i data-lucide="chevron-right" class="w-6 h-6 md:w-7 md:h-7 pl-0.5"></i>
-                                </button>
-                                
-                                <!-- Indicador (ej. 1 / 4) -->
-                                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-brand-blue/80 text-white px-4 py-1.5 text-[11px] font-medium tracking-[0.2em] rounded-full backdrop-blur-md z-20 border border-white/10 shadow-sm pointer-events-none">
-                                    <span id="modal-media-indicator">1 / ${data.media.length}</span>
-                                </div>
-                            `;
-                        }
-                        
-                        sliderHtml += `</div>`;
-                    }
-                    
-                    // Inyectar el HTML construido
-                    modalContentBody.innerHTML = sliderHtml;
-                    lucide.createIcons(); // Renderizar los íconos inyectados dinámicamente
-                    
-                    // Mostrar modal con animaciones
                     serviceModal.classList.remove('hidden');
                     serviceModal.classList.add('flex');
                     
+                    // Pequeño retraso para que la transición CSS funcione correctamente
                     requestAnimationFrame(() => {
                         modalOverlay.classList.remove('opacity-0');
                         modalContent.classList.remove('opacity-0', 'scale-95');
                         modalContent.classList.add('opacity-100', 'scale-100');
                     });
                     
-                    // Si el primer archivo es un video, tratar de reproducirlo
-                    const firstSlide = modalContentBody.querySelector('.modal-media-slide[data-index="0"]');
-                    if (firstSlide) {
-                        const video = firstSlide.querySelector('video');
-                        if(video) video.play().catch(e => console.log("Se requiere interacción para reproducir."));
-                    }
+                    // Intenta reproducir el video automáticamente al abrir
+                    modalVideo.play().catch(e => console.log("El navegador requiere interacción manual para reproducir."));
                 }
 
                 window.closeServiceModal = function() {
@@ -1330,15 +1225,15 @@
                     modalContent.classList.remove('opacity-100', 'scale-100');
                     modalContent.classList.add('opacity-0', 'scale-95');
                     
-                    // Detener TODOS los videos inmediatamente
-                    const videos = modalContentBody.querySelectorAll('video');
-                    videos.forEach(v => v.pause());
+                    // Detener el video inmediatamente al cerrar
+                    modalVideo.pause();
                     
                     setTimeout(() => {
                         serviceModal.classList.add('hidden');
                         serviceModal.classList.remove('flex');
-                        modalContentBody.innerHTML = ''; // Limpiar para detener procesos y descargas en caché
-                    }, 300); // 300ms coincide con la transición
+                        modalVideo.currentTime = 0;
+                        modalVideo.src = ""; // Limpiar la fuente para detener descargas en segundo plano
+                    }, 300); // Esto coincide con la duración de la transición (duration-300)
                 }
 
                 closeModalBtn.addEventListener('click', closeServiceModal);
