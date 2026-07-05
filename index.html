@@ -29,7 +29,8 @@
                             gray: '#8A8D8F',
                             teal: '#006B75'
                         }
-                    },
+                    }
+                    ,
                     fontFamily: {
                         serif: ['"Playfair Display"', 'serif'],
                         sans: ['Inter', 'sans-serif']
@@ -59,7 +60,6 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Estilos Personalizados (Animaciones y Formularios) -->
     <style>
         body {
             background-color: #F9F8F6;
@@ -153,39 +153,49 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            background-color: #ffffff;
-            border-radius: 50px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             text-decoration: none;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.05);
-            padding: 8px 20px 8px 8px;
-            flex-direction: row; 
+            transition: transform 0.3s ease;
         }
 
         .whatsapp-btn-minimal:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-        }
-
-        .wa-logo-bg {
-            background-color: #25D366;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
         }
 
         .wa-text-label {
+            background-color: #ffffff;
             color: #0B2252;
+            padding: 10px 18px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0,0,0,0.05);
             font-family: 'Inter', sans-serif;
             font-size: 13px;
             font-weight: 600;
             letter-spacing: 0.05em;
             text-transform: uppercase;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .whatsapp-btn-minimal:hover .wa-text-label {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .wa-logo-bg {
+            background-color: #25D366;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .whatsapp-btn-minimal:hover .wa-logo-bg {
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+            transform: scale(1.05);
         }
 
         /* Ajuste para móviles */
@@ -193,15 +203,15 @@
             .whatsapp-btn-minimal {
                 bottom: 20px;
                 right: 20px;
-                left: auto;
-                padding: 6px 16px 6px 6px;
-            }
-            .wa-logo-bg {
-                width: 36px;
-                height: 36px;
+                gap: 10px;
             }
             .wa-text-label {
-                font-size: 12px;
+                font-size: 11px;
+                padding: 8px 14px;
+            }
+            .wa-logo-bg {
+                width: 46px;
+                height: 46px;
             }
         }
     </style>
@@ -210,13 +220,13 @@
 
     <!-- BOTÓN WHATSAPP FLOTANTE -->
     <a href="https://wa.me/573124849928" target="_blank" rel="noopener noreferrer" class="whatsapp-btn-minimal" aria-label="Contactar por WhatsApp">
+        <span class="wa-text-label">Contáctanos</span>
         <div class="wa-logo-bg">
             <!-- Icono SVG oficial de WhatsApp -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
             </svg>
         </div>
-        <span class="wa-text-label">Contáctanos</span>
     </a>
 
     <!-- OVERLAY MENÚ MÓVIL -->
@@ -360,7 +370,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
                 
                 <!-- Servicio 1 -->
-                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in">
+                <div onclick="openServiceModal('ecografia')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in">
                     <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
                         <i data-lucide="scan" stroke-width="1.5" class="w-7 h-7"></i>
                     </div>
@@ -372,7 +382,7 @@
                 </div>
 
                 <!-- Servicio 2 -->
-                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 50ms;">
+                <div onclick="openServiceModal('hospitalizacion')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 50ms;">
                     <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
                         <i data-lucide="bed" stroke-width="1.5" class="w-7 h-7"></i>
                     </div>
@@ -384,7 +394,7 @@
                 </div>
 
                 <!-- Servicio 3 -->
-                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 100ms;">
+                <div onclick="openServiceModal('profilaxis')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 100ms;">
                     <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
                         <i data-lucide="sparkles" stroke-width="1.5" class="w-7 h-7"></i>
                     </div>
@@ -396,7 +406,7 @@
                 </div>
 
                 <!-- Servicio 4 -->
-                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 150ms;">
+                <div onclick="openServiceModal('banos')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 150ms;">
                     <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
                         <i data-lucide="bath" stroke-width="1.5" class="w-7 h-7"></i>
                     </div>
@@ -408,7 +418,7 @@
                 </div>
 
                 <!-- Servicio 5 -->
-                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 200ms;">
+                <div onclick="openServiceModal('consultas')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 200ms;">
                     <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
                         <i data-lucide="stethoscope" stroke-width="1.5" class="w-7 h-7"></i>
                     </div>
@@ -420,7 +430,7 @@
                 </div>
 
                 <!-- Servicio 6 -->
-                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 250ms;">
+                <div onclick="openServiceModal('nebulizacion')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 250ms;">
                     <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
                         <i data-lucide="wind" stroke-width="1.5" class="w-7 h-7"></i>
                     </div>
@@ -432,7 +442,7 @@
                 </div>
 
                 <!-- Servicio 7 -->
-                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 300ms;">
+                <div onclick="openServiceModal('vacunacion')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 300ms;">
                     <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
                         <i data-lucide="syringe" stroke-width="1.5" class="w-7 h-7"></i>
                     </div>
@@ -444,7 +454,7 @@
                 </div>
 
                 <!-- Servicio 8 -->
-                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 350ms;">
+                <div onclick="openServiceModal('procedimientos')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 350ms;">
                     <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
                         <i data-lucide="activity" stroke-width="1.5" class="w-7 h-7"></i>
                     </div>
@@ -456,7 +466,7 @@
                 </div>
 
                 <!-- Servicio 9 -->
-                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 400ms;">
+                <div onclick="openServiceModal('presiones')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 400ms;">
                     <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
                         <i data-lucide="gauge" stroke-width="1.5" class="w-7 h-7"></i>
                     </div>
@@ -468,7 +478,7 @@
                 </div>
 
                 <!-- Servicio 10 -->
-                <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 450ms;">
+                <div onclick="openServiceModal('ecocardiografia')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 450ms;">
                     <div class="w-14 h-14 rounded-full bg-japandi-light group-hover:bg-brand-teal flex items-center justify-center text-brand-teal group-hover:text-white mb-4 transition-colors duration-300">
                         <i data-lucide="heart-pulse" stroke-width="1.5" class="w-7 h-7"></i>
                     </div>
@@ -712,12 +722,12 @@
                 <!-- FAQ 1 -->
                 <div class="border-b border-brand-gray/20 pb-4">
                     <button class="faq-toggle w-full flex justify-between items-center py-4 text-left focus:outline-none group">
-                        <span class="font-medium text-brand-blue group-hover:text-brand-teal transition-colors">¿Qué sucede si hay una emergencia médica?</span>
+                        <span class="font-medium text-brand-blue group-hover:text-brand-teal transition-colors">¿Por qué es importante realizar ecografías preventivas?</span>
                         <i data-lucide="plus" class="w-5 h-5 text-brand-gray group-hover:text-brand-teal transition-transform duration-300"></i>
                     </button>
                     <div class="faq-content">
                         <p class="text-sm text-japandi-text font-light pb-4 leading-relaxed">
-                            Al ser un centro veterinario integrado, contamos con médicos de guardia 24/7, sala de urgencias y equipos de diagnóstico. Nos comunicaremos contigo inmediatamente, pero actuaremos de urgencia si la vida del animal lo requiere, bajo el protocolo previamente autorizado.
+                            Muchas enfermedades en mascotas son silenciosas y no muestran síntomas evidentes hasta que están avanzadas. Las ecografías nos permiten evaluar órganos internos (corazón, hígado, riñones, etc.) en tiempo real y sin dolor. Un diagnóstico temprano marca la diferencia entre un tratamiento sencillo y uno complejo, salvando vidas.
                         </p>
                     </div>
                 </div>
@@ -725,12 +735,12 @@
                 <!-- FAQ 2 -->
                 <div class="border-b border-brand-gray/20 pb-4">
                     <button class="faq-toggle w-full flex justify-between items-center py-4 text-left focus:outline-none group">
-                        <span class="font-medium text-brand-blue group-hover:text-brand-teal transition-colors">¿Debo llevar la comida de mi mascota?</span>
+                        <span class="font-medium text-brand-blue group-hover:text-brand-teal transition-colors">¿Cómo debo preparar a mi mascota para una ecografía?</span>
                         <i data-lucide="plus" class="w-5 h-5 text-brand-gray group-hover:text-brand-teal transition-transform duration-300"></i>
                     </button>
                     <div class="faq-content">
                         <p class="text-sm text-japandi-text font-light pb-4 leading-relaxed">
-                            Sí, es altamente recomendable para evitar problemas gastrointestinales por cambios abruptos de dieta. Solicitamos que traigas la porción exacta para los días de estadía. En caso contrario, ofrecemos alimento super premium con cargo adicional.
+                            Generalmente, solicitamos un ayuno de 8 a 12 horas para estudios abdominales (el agua está permitida) para evitar que gases o alimentos dificulten la visión de los órganos. Si la vejiga necesita ser evaluada, te pediremos que evites que tu mascota orine 2 horas antes de la cita. Al confirmar tu turno, te daremos instrucciones precisas.
                         </p>
                     </div>
                 </div>
@@ -738,18 +748,38 @@
                 <!-- FAQ 3 -->
                 <div class="border-b border-brand-gray/20 pb-4">
                     <button class="faq-toggle w-full flex justify-between items-center py-4 text-left focus:outline-none group">
-                        <span class="font-medium text-brand-blue group-hover:text-brand-teal transition-colors">¿Tienen espacios compartidos con otros animales?</span>
+                        <span class="font-medium text-brand-blue group-hover:text-brand-teal transition-colors">¿Si mi mascota necesita hospitalización, puedo visitarla?</span>
                         <i data-lucide="plus" class="w-5 h-5 text-brand-gray group-hover:text-brand-teal transition-transform duration-300"></i>
                     </button>
                     <div class="faq-content">
                         <p class="text-sm text-japandi-text font-light pb-4 leading-relaxed">
-                            El descanso es individual en suites privadas para garantizar seguridad y paz. Las áreas de juego se utilizan de forma escalonada según el temperamento y tamaño, y bajo estricta supervisión, evitando el estrés del contacto masivo.
+                            Sabemos lo importante que es tu presencia para su recuperación. Contamos con horarios de visita establecidos para que puedas acompañarlos, siempre que su condición médica lo permita. Nuestro equipo mantendrá una comunicación constante contigo sobre su estado de salud y evolución.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- MODAL DE SERVICIOS (CONTENEDOR DE VIDEO / SLIDER) -->
+    <div id="service-modal" class="fixed inset-0 z-[110] hidden items-center justify-center">
+        <!-- Fondo oscuro (Overlay) -->
+        <div class="absolute inset-0 bg-brand-blue/90 backdrop-blur-sm modal-overlay transition-opacity duration-300 opacity-0 cursor-pointer"></div>
+        <!-- Contenido del Modal -->
+        <div class="relative bg-white rounded-2xl w-[90%] max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl modal-content transform scale-95 opacity-0 transition-all duration-300 z-10 flex flex-col">
+            <!-- Cabecera -->
+            <div class="px-6 py-4 border-b border-brand-gray/10 flex justify-between items-center bg-white z-20 sticky top-0">
+                <h3 id="modal-title" class="text-xl md:text-2xl font-serif text-brand-blue font-medium">Título del Servicio</h3>
+                <button type="button" id="close-modal" class="text-brand-gray hover:text-brand-teal transition-colors p-1 rounded-full hover:bg-japandi-light outline-none">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <!-- Contenedor del reproductor / contenido dinámico -->
+            <div id="modal-content-body" class="w-full flex-grow p-4 md:p-6 flex flex-col bg-japandi-bg/30">
+                <!-- El contenido (carrusel) se inyectará aquí desde JS -->
+            </div>
+        </div>
+    </div>
 
     <!-- FOOTER PRINCIPAL RENOVADO -->
     <footer class="bg-brand-blue text-white pt-24 pb-12 px-6">
@@ -864,6 +894,26 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Inicializar Iconos Lucide
             lucide.createIcons();
+            
+            // Reemplazo moderno para alert()
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.className = 'fixed top-24 left-1/2 transform -translate-x-1/2 bg-brand-blue text-white px-6 py-3 rounded-lg shadow-[0_10px_40px_rgba(11,34,82,0.3)] z-[100] transition-all duration-500 opacity-0 flex items-center gap-3 font-sans text-sm';
+                toast.innerHTML = `<i data-lucide="info" class="w-5 h-5 text-brand-teal"></i> ${message}`;
+                document.body.appendChild(toast);
+                lucide.createIcons(); // inicializar el icono del toast
+                
+                setTimeout(() => {
+                    toast.classList.remove('opacity-0');
+                    toast.classList.add('translate-y-2');
+                }, 10);
+                
+                setTimeout(() => {
+                    toast.classList.add('opacity-0');
+                    toast.classList.remove('translate-y-2');
+                    setTimeout(() => toast.remove(), 500);
+                }, 3500);
+            }
 
             // 1. Navbar Scroll Effect
             const navbar = document.getElementById('navbar');
@@ -1107,7 +1157,7 @@
 
                     // Validar que se haya seleccionado una fecha válida (no el placeholder)
                     if (fecha === "Seleccionar fecha") {
-                        alert("Por favor, selecciona una fecha para tu cita.");
+                        showToast("Por favor, selecciona una fecha para tu cita.");
                         return;
                     }
 
@@ -1122,6 +1172,177 @@
                     const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
                     window.open(urlWhatsApp, '_blank');
                 });
+            }
+            
+            // 8. Lógica del Modal de Servicios (Videos e Imágenes con Slider Integrado)
+            const serviceData = {
+                'ecografia': { 
+                    title: 'Ecografía Especializada', 
+                    media: [
+                        { type: 'video', src: 'ecografia1.mp4' },
+                        { type: 'image', src: 'ecografia2.jpeg' },
+                        { type: 'image', src: 'ecografia3.jpeg' },
+                        { type: 'video', src: 'ecografia4.mp4' }
+                    ]
+                },
+                'hospitalizacion': { title: 'Hospitalización', media: [{ type: 'video', src: 'video_hospitalizacion.mp4' }] },
+                'profilaxis': { title: 'Profilaxis', media: [{ type: 'video', src: 'video_profilaxis.mp4' }] },
+                'banos': { title: 'Baños Medicados', media: [{ type: 'video', src: 'video_banos.mp4' }] },
+                'consultas': { title: 'Consultas', media: [{ type: 'video', src: 'video_consultas.mp4' }] },
+                'nebulizacion': { title: 'Nebulización', media: [{ type: 'video', src: 'video_nebulizacion.mp4' }] },
+                'vacunacion': { title: 'Vacunación', media: [{ type: 'video', src: 'video_vacunacion.mp4' }] },
+                'procedimientos': { title: 'Procedimientos', media: [{ type: 'video', src: 'video_procedimientos.mp4' }] },
+                'presiones': { title: 'Toma de Presiones', media: [{ type: 'video', src: 'video_presiones.mp4' }] },
+                'ecocardiografia': { title: 'Ecocardiografía', media: [{ type: 'video', src: 'video_ecocardiografia.mp4' }] }
+            };
+
+            const serviceModal = document.getElementById('service-modal');
+            
+            // Variables de control global para el slider del modal
+            window.currentModalMediaIndex = 0;
+            
+            // Funciones de navegación (disponibles en window para los atributos onclick del HTML)
+            window.updateModalMediaDisplay = function() {
+                const slides = document.querySelectorAll('.modal-media-slide');
+                if(!slides.length) return;
+                
+                slides.forEach((slide, index) => {
+                    const video = slide.querySelector('video');
+                    if (index === window.currentModalMediaIndex) {
+                        slide.classList.remove('hidden');
+                        slide.classList.add('flex');
+                        if (video) video.play().catch(e => console.log("Se requiere interacción del usuario."));
+                    } else {
+                        slide.classList.remove('flex');
+                        slide.classList.add('hidden');
+                        if (video) video.pause(); // Asegura detener videos de otros slides
+                    }
+                });
+
+                // Actualizar el indicador numérico
+                const indicator = document.getElementById('modal-media-indicator');
+                if (indicator) {
+                    indicator.textContent = `${window.currentModalMediaIndex + 1} / ${slides.length}`;
+                }
+            };
+
+            window.nextModalMedia = function() {
+                const slides = document.querySelectorAll('.modal-media-slide');
+                if(!slides.length) return;
+                window.currentModalMediaIndex = (window.currentModalMediaIndex + 1) % slides.length;
+                window.updateModalMediaDisplay();
+            };
+
+            window.prevModalMedia = function() {
+                const slides = document.querySelectorAll('.modal-media-slide');
+                if(!slides.length) return;
+                window.currentModalMediaIndex = (window.currentModalMediaIndex - 1 + slides.length) % slides.length;
+                window.updateModalMediaDisplay();
+            };
+
+            if (serviceModal) {
+                const modalOverlay = serviceModal.querySelector('.modal-overlay');
+                const modalContent = serviceModal.querySelector('.modal-content');
+                const modalTitle = document.getElementById('modal-title');
+                const modalContentBody = document.getElementById('modal-content-body');
+                const closeModalBtn = document.getElementById('close-modal');
+
+                window.openServiceModal = function(serviceId) {
+                    const data = serviceData[serviceId];
+                    if(!data) return;
+
+                    modalTitle.textContent = data.title;
+                    window.currentModalMediaIndex = 0; // Resetear slider al abrir
+                    
+                    let sliderHtml = '';
+                    if (data.media && data.media.length > 0) {
+                        // Contenedor principal relativo con altura fija para los slides absolutos
+                        sliderHtml += `<div class="relative w-full h-[50vh] md:h-[65vh] rounded-xl overflow-hidden shadow-inner bg-black/5 flex items-center justify-center group">`;
+                        
+                        // Generar todos los slides
+                        data.media.forEach((item, index) => {
+                            const visibilityClass = index === 0 ? 'flex' : 'hidden';
+                            if (item.type === 'video') {
+                                sliderHtml += `
+                                    <div class="modal-media-slide absolute inset-0 ${visibilityClass} items-center justify-center bg-black" data-index="${index}">
+                                        <video class="w-full h-full object-contain" controls controlsList="nodownload" preload="metadata">
+                                            <source src="${item.src}" type="video/mp4">
+                                            Tu navegador no soporta la etiqueta de video.
+                                        </video>
+                                    </div>
+                                `;
+                            } else if (item.type === 'image') {
+                                sliderHtml += `
+                                    <div class="modal-media-slide absolute inset-0 ${visibilityClass} items-center justify-center bg-japandi-light/30 backdrop-blur-md" data-index="${index}">
+                                        <img src="${item.src}" alt="${data.title}" class="max-w-full max-h-full object-contain drop-shadow-lg">
+                                    </div>
+                                `;
+                            }
+                        });
+
+                        // Agregar botones de flechas e indicador SOLO si hay más de 1 archivo
+                        if (data.media.length > 1) {
+                            sliderHtml += `
+                                <!-- Flecha Izquierda -->
+                                <button type="button" onclick="prevModalMedia()" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white/95 text-brand-blue rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:scale-105 hover:bg-white transition-all duration-300 z-20 focus:outline-none opacity-80 hover:opacity-100 group-hover:opacity-100">
+                                    <i data-lucide="chevron-left" class="w-6 h-6 md:w-7 md:h-7 pr-0.5"></i>
+                                </button>
+                                
+                                <!-- Flecha Derecha -->
+                                <button type="button" onclick="nextModalMedia()" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white/95 text-brand-blue rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:scale-105 hover:bg-white transition-all duration-300 z-20 focus:outline-none opacity-80 hover:opacity-100 group-hover:opacity-100">
+                                    <i data-lucide="chevron-right" class="w-6 h-6 md:w-7 md:h-7 pl-0.5"></i>
+                                </button>
+                                
+                                <!-- Indicador (ej. 1 / 4) -->
+                                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-brand-blue/80 text-white px-4 py-1.5 text-[11px] font-medium tracking-[0.2em] rounded-full backdrop-blur-md z-20 border border-white/10 shadow-sm pointer-events-none">
+                                    <span id="modal-media-indicator">1 / ${data.media.length}</span>
+                                </div>
+                            `;
+                        }
+                        
+                        sliderHtml += `</div>`;
+                    }
+                    
+                    // Inyectar el HTML construido
+                    modalContentBody.innerHTML = sliderHtml;
+                    lucide.createIcons(); // Renderizar los íconos inyectados dinámicamente
+                    
+                    // Mostrar modal con animaciones
+                    serviceModal.classList.remove('hidden');
+                    serviceModal.classList.add('flex');
+                    
+                    requestAnimationFrame(() => {
+                        modalOverlay.classList.remove('opacity-0');
+                        modalContent.classList.remove('opacity-0', 'scale-95');
+                        modalContent.classList.add('opacity-100', 'scale-100');
+                    });
+                    
+                    // Si el primer archivo es un video, tratar de reproducirlo
+                    const firstSlide = modalContentBody.querySelector('.modal-media-slide[data-index="0"]');
+                    if (firstSlide) {
+                        const video = firstSlide.querySelector('video');
+                        if(video) video.play().catch(e => console.log("Se requiere interacción para reproducir."));
+                    }
+                }
+
+                window.closeServiceModal = function() {
+                    modalOverlay.classList.add('opacity-0');
+                    modalContent.classList.remove('opacity-100', 'scale-100');
+                    modalContent.classList.add('opacity-0', 'scale-95');
+                    
+                    // Detener TODOS los videos inmediatamente
+                    const videos = modalContentBody.querySelectorAll('video');
+                    videos.forEach(v => v.pause());
+                    
+                    setTimeout(() => {
+                        serviceModal.classList.add('hidden');
+                        serviceModal.classList.remove('flex');
+                        modalContentBody.innerHTML = ''; // Limpiar para detener procesos y descargas en caché
+                    }, 300); // 300ms coincide con la transición
+                }
+
+                closeModalBtn.addEventListener('click', closeServiceModal);
+                modalOverlay.addEventListener('click', closeServiceModal);
             }
         });
     </script>
