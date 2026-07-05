@@ -774,9 +774,9 @@
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
             </div>
-            <!-- Contenedor del reproductor -->
+            <!-- Contenedor del reproductor con soporte mejorado para móviles -->
             <div class="w-full aspect-video bg-black relative flex-grow">
-                <video id="modal-video" class="w-full h-full object-contain" controls controlsList="nodownload" playsinline webkit-playsinline>
+                <video id="modal-video" class="w-full h-full object-contain" controls controlsList="nodownload" playsinline webkit-playsinline preload="auto">
                     <source src="" type="video/mp4">
                     Tu navegador no soporta la etiqueta de video.
                 </video>
@@ -1177,7 +1177,7 @@
                 });
             }
             
-            // 8. Lógica del Modal de Servicios (Videos)
+            // 8. Lógica del Modal de Servicios (Videos - Optimizada para Móviles)
             const serviceData = {
                 'ecografia': { title: 'Ecografía Especializada', videoSrc: 'video_ecografia.mp4' },
                 'hospitalizacion': { title: 'Hospitalización', videoSrc: 'video_hospitalizacion.mp4' },
@@ -1203,21 +1203,36 @@
                     const data = serviceData[serviceId];
                     if(!data) return;
 
-                    modalTitle.textContent = data.title;
-                    modalVideo.src = data.videoSrc; // Carga el video correspondiente
+                    // Limpiar fuente anterior para evitar interferencias
+                    modalVideo.pause();
+                    modalVideo.removeAttribute('src'); 
+                    modalVideo.load();
                     
+                    // Asignar nuevos datos
+                    modalTitle.textContent = data.title;
+                    modalVideo.src = data.videoSrc;
+                    
+                    // Asegurar la carga para que los navegadores móviles procesen la fuente nueva
+                    modalVideo.load(); 
+                    
+                    // Forzar la orden de play de manera completamente síncrona dentro del evento de clic.
+                    // No debe estar dentro de un setTimeOut o RequestAnimationFrame para que iOS reconozca el gesto del usuario.
+                    const playPromise = modalVideo.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(e => {
+                            console.warn("Autoplay prevenido por seguridad del navegador móvil.", e);
+                        });
+                    }
+
+                    // Mostrar modal visualmente
                     serviceModal.classList.remove('hidden');
                     serviceModal.classList.add('flex');
                     
-                    // Pequeño retraso para que la transición CSS funcione correctamente
                     requestAnimationFrame(() => {
                         modalOverlay.classList.remove('opacity-0');
                         modalContent.classList.remove('opacity-0', 'scale-95');
                         modalContent.classList.add('opacity-100', 'scale-100');
                     });
-                    
-                    // Intenta reproducir el video automáticamente al abrir
-                    modalVideo.play().catch(e => console.log("El navegador requiere interacción manual para reproducir."));
                 }
 
                 window.closeServiceModal = function() {
@@ -1232,7 +1247,8 @@
                         serviceModal.classList.add('hidden');
                         serviceModal.classList.remove('flex');
                         modalVideo.currentTime = 0;
-                        modalVideo.src = ""; // Limpiar la fuente para detener descargas en segundo plano
+                        modalVideo.removeAttribute('src'); // Limpiar la fuente
+                        modalVideo.load(); // Reiniciar estado
                     }, 300); // Esto coincide con la duración de la transición (duration-300)
                 }
 
