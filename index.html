@@ -90,15 +90,6 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        /* Hamburguesa Móvil (CSS puro) */
-        .hamburger-line {
-            transition: transform 0.4s ease, opacity 0.4s ease, background-color 0.4s ease;
-            transform-origin: center;
-        }
-        .menu-open .line-1 { transform: translateY(8px) rotate(45deg); }
-        .menu-open .line-2 { opacity: 0; }
-        .menu-open .line-3 { transform: translateY(-8px) rotate(-45deg); }
-
         /* Datepicker Invisible Hack (Modificado para Flatpickr) */
         .date-input-wrapper { position: relative; cursor: pointer; }
         .date-input-wrapper input {
@@ -133,9 +124,6 @@
         .flatpickr-current-month input.cur-year { font-weight: 600 !important; }
         .flatpickr-current-month .flatpickr-monthDropdown-months { font-weight: 600 !important; }
         span.flatpickr-weekday { color: #8A8D8F !important; font-weight: 500 !important; }
-        
-        /* Ocultar barra de scroll en menú móvil */
-        #mobile-menu::-webkit-scrollbar { display: none; }
         
         /* Acordeón FAQ */
         .faq-content {
@@ -229,41 +217,23 @@
         </div>
     </a>
 
-    <!-- OVERLAY MENÚ MÓVIL -->
-    <div id="mobile-menu" class="fixed inset-0 bg-japandi-bg z-40 transform translate-x-full transition-transform duration-700 cubic-bezier(0.16, 1, 0.3, 1) flex flex-col justify-center items-center">
-        <nav class="flex flex-col gap-8 text-center text-xl font-sans tracking-wide">
-            <a href="#servicios" class="menu-link text-brand-blue hover:text-brand-teal transition-colors">Servicios</a>
-            <a href="#sobre-nosotros" class="menu-link text-brand-blue hover:text-brand-teal transition-colors">Quiénes Somos</a>
-            <a href="#testimonios" class="menu-link text-brand-blue hover:text-brand-teal transition-colors">Testimonios</a>
-            <a href="#reservas" class="menu-link text-brand-teal font-semibold hover:text-brand-blue transition-colors">Agendar Cita</a>
-        </nav>
-    </div>
-
-    <!-- NAVEGACIÓN -->
-    <header id="navbar" class="fixed w-full top-0 z-50 py-4 px-6 md:px-12 text-white">
-        <div class="max-w-7xl mx-auto flex flex-col items-center lg:gap-3 transition-all duration-300">
-            <!-- Fila superior: Logo (y botón hamburguesa en móviles) -->
-            <div class="w-full flex justify-between items-center lg:justify-center">
-                <!-- Logo Monoline -->
-                <a href="#" class="flex items-center gap-3 font-sans font-light tracking-widest text-lg md:text-xl uppercase z-50 nav-logo transition-colors duration-500 text-white">
-                    <img src="https://i.postimg.cc/VLh2ymVb/logo.png" alt="Logo Polipet's" class="h-8 md:h-10 w-auto transition-all duration-500 brightness-0 invert header-logo-img">
+    <!-- NAVEGACIÓN UNIFICADA (RESPONSIVE) -->
+    <header id="navbar" class="fixed w-full top-0 z-50 py-3 md:py-4 px-2 md:px-12 text-white">
+        <div class="max-w-7xl mx-auto flex flex-col items-center justify-center gap-2 md:gap-3 transition-all duration-300">
+            <!-- Fila superior: Logo centrado -->
+            <div class="w-full flex justify-center items-center">
+                <a href="#" class="flex items-center gap-2 md:gap-3 font-sans font-light tracking-widest text-base md:text-xl uppercase z-50 nav-logo transition-colors duration-500 text-white">
+                    <img src="https://i.postimg.cc/VLh2ymVb/logo.png" alt="Logo Polipet's" class="h-6 md:h-10 w-auto transition-all duration-500 brightness-0 invert header-logo-img">
                     <span>Polipet´s</span>
                 </a>
-
-                <!-- Botón Móvil -->
-                <button id="menu-toggle" class="lg:hidden z-50 w-8 h-8 flex flex-col justify-center gap-1.5 focus:outline-none" aria-label="Abrir menú">
-                    <span class="hamburger-line line-1 block w-full h-[1px] bg-current"></span>
-                    <span class="hamburger-line line-2 block w-full h-[1px] bg-current"></span>
-                    <span class="hamburger-line line-3 block w-full h-[1px] bg-current"></span>
-                </button>
             </div>
 
-            <!-- Desktop Nav (Fila inferior) -->
-            <nav class="hidden lg:flex gap-5 xl:gap-10 items-center text-[11px] xl:text-sm tracking-[0.15em] uppercase">
-                <a href="#servicios" class="text-white hover:opacity-70 hover:text-brand-teal transition-all duration-300">Servicios</a>
-                <a href="#sobre-nosotros" class="text-white hover:opacity-70 hover:text-brand-teal transition-all duration-300">Quiénes Somos</a>
-                <a href="#testimonios" class="text-white hover:opacity-70 hover:text-brand-teal transition-all duration-300">Testimonios</a>
-                <a href="#reservas" class="text-white font-semibold border border-white/30 px-4 py-2 rounded-md hover:bg-white hover:text-brand-blue transition-all duration-300 nav-cta">Agendar Cita</a>
+            <!-- Fila inferior: Links de navegación -->
+            <nav class="flex justify-center gap-2 sm:gap-4 md:gap-6 xl:gap-10 items-center w-full text-[8px] min-[370px]:text-[9px] sm:text-[11px] md:text-xs xl:text-sm tracking-wider sm:tracking-widest md:tracking-[0.15em] uppercase flex-wrap">
+                <a href="#servicios" class="text-white hover:opacity-70 hover:text-brand-teal transition-all duration-300 whitespace-nowrap">Servicios</a>
+                <a href="#sobre-nosotros" class="text-white hover:opacity-70 hover:text-brand-teal transition-all duration-300 whitespace-nowrap">Quiénes Somos</a>
+                <a href="#testimonios" class="text-white hover:opacity-70 hover:text-brand-teal transition-all duration-300 whitespace-nowrap">Testimonios</a>
+                <a href="#reservas" class="text-white font-semibold border border-white/30 px-2 py-1 md:px-4 md:py-2 rounded-md hover:bg-white hover:text-brand-blue transition-all duration-300 nav-cta whitespace-nowrap">Agendar Cita</a>
             </nav>
         </div>
     </header>
@@ -903,17 +873,17 @@
                 }, 3500);
             }
 
-            // 1. Navbar Scroll Effect
+            // 1. Navbar Scroll Effect (Ahora adaptado para el menú unificado)
             const navbar = document.getElementById('navbar');
             const logo = document.querySelector('.nav-logo');
             const navLinks = document.querySelectorAll('#navbar nav a:not(.nav-cta)'); // Excluir el CTA para estilizarlo aparte
             const navCta = document.querySelector('.nav-cta');
-            const hamburgerLines = document.querySelectorAll('.hamburger-line');
             
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
                     navbar.classList.add('scrolled');
-                    navbar.classList.replace('py-4', 'py-3');
+                    navbar.classList.replace('py-3', 'py-2');
+                    navbar.classList.replace('md:py-4', 'md:py-3');
                     
                     // Actualizar color de texto e imagen del logo
                     if (logo) {
@@ -935,13 +905,10 @@
                         navCta.classList.add('text-brand-blue', 'border-brand-blue', 'hover:bg-brand-blue', 'hover:text-white');
                     }
                     
-                    hamburgerLines.forEach(line => {
-                        line.classList.remove('bg-white');
-                        line.classList.add('bg-brand-blue');
-                    });
                 } else {
                     navbar.classList.remove('scrolled');
-                    navbar.classList.replace('py-3', 'py-4');
+                    navbar.classList.replace('py-2', 'py-3');
+                    navbar.classList.replace('md:py-3', 'md:py-4');
                     
                     // Restaurar color de texto e imagen del logo a blanco
                     if (logo) {
@@ -962,45 +929,8 @@
                         navCta.classList.remove('text-brand-blue', 'border-brand-blue', 'hover:bg-brand-blue', 'hover:text-white');
                         navCta.classList.add('text-white', 'border-white/30', 'hover:bg-white', 'hover:text-brand-blue');
                     }
-                    
-                    hamburgerLines.forEach(line => {
-                        line.classList.remove('bg-brand-blue');
-                        line.classList.add('bg-white');
-                    });
                 }
             });
-
-            // 2. Mobile Menu Toggle
-            const menuToggle = document.getElementById('menu-toggle');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileLinks = document.querySelectorAll('.menu-link');
-            let isMenuOpen = false;
-
-            function toggleMenu() {
-                isMenuOpen = !isMenuOpen;
-                menuToggle.classList.toggle('menu-open');
-                
-                if (isMenuOpen) {
-                    mobileMenu.classList.remove('translate-x-full');
-                    mobileMenu.classList.add('translate-x-0');
-                    // Forzar color oscuro en hamburguesa al abrir sobre fondo claro
-                    hamburgerLines.forEach(line => {
-                        line.style.backgroundColor = '#0B2252'; 
-                    });
-                } else {
-                    mobileMenu.classList.add('translate-x-full');
-                    mobileMenu.classList.remove('translate-x-0');
-                    // Resetear color
-                    setTimeout(() => {
-                        hamburgerLines.forEach(line => {
-                            line.style.backgroundColor = ''; 
-                        });
-                    }, 400);
-                }
-            }
-
-            menuToggle.addEventListener('click', toggleMenu);
-            mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
             // 3. Animaciones Fade-In con Intersection Observer
             const observerOptions = {
