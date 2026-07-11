@@ -79,17 +79,6 @@
             transform: translateY(0);
         }
 
-        /* Navbar Dinámico */
-        #navbar {
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        #navbar.scrolled {
-            background-color: rgba(249, 248, 246, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
         /* Datepicker Invisible Hack (Modificado para Flatpickr) */
         .date-input-wrapper { position: relative; cursor: pointer; }
         .date-input-wrapper input {
@@ -217,53 +206,126 @@
         </div>
     </a>
 
-    <!-- NAVEGACIÓN UNIFICADA (RESPONSIVE) -->
-    <header id="navbar" class="fixed w-full top-0 z-50 py-3 md:py-4 px-2 md:px-12 text-white">
-        <div class="max-w-7xl mx-auto flex flex-col items-center justify-center gap-2 md:gap-3 transition-all duration-300">
+    <!-- NAVEGACIÓN UNIFICADA (FIJA Y VISIBLE) -->
+    <header id="navbar" class="fixed w-full top-0 z-50 py-2 md:py-3 px-2 md:px-12 bg-japandi-bg/95 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex flex-col items-center justify-center gap-2 md:gap-3">
             <!-- Fila superior: Logo centrado -->
             <div class="w-full flex justify-center items-center">
-                <a href="#" class="flex items-center gap-2 md:gap-3 font-sans font-light tracking-widest text-base md:text-xl uppercase z-50 nav-logo transition-colors duration-500 text-white">
-                    <img src="https://i.postimg.cc/VLh2ymVb/logo.png" alt="Logo Polipet's" class="h-6 md:h-10 w-auto transition-all duration-500 brightness-0 invert header-logo-img">
+                <a href="#" class="flex items-center gap-2 md:gap-3 font-sans font-light tracking-widest text-base md:text-xl uppercase z-50 nav-logo text-brand-blue transition-colors duration-500">
+                    <img src="https://i.postimg.cc/VLh2ymVb/logo.png" alt="Logo Polipet's" class="h-6 md:h-10 w-auto transition-all duration-500 header-logo-img" onerror="this.onerror=null; this.src='https://placehold.co/100x40/0B2252/FFF?text=Logo';">
                     <span>Polipet´s</span>
                 </a>
             </div>
 
             <!-- Fila inferior: Links de navegación -->
             <nav class="flex justify-center gap-2 sm:gap-4 md:gap-6 xl:gap-10 items-center w-full text-[8px] min-[370px]:text-[9px] sm:text-[11px] md:text-xs xl:text-sm tracking-wider sm:tracking-widest md:tracking-[0.15em] uppercase flex-wrap">
-                <a href="#servicios" class="text-white hover:opacity-70 hover:text-brand-teal transition-all duration-300 whitespace-nowrap">Servicios</a>
-                <a href="#sobre-nosotros" class="text-white hover:opacity-70 hover:text-brand-teal transition-all duration-300 whitespace-nowrap">Quiénes Somos</a>
-                <a href="#testimonios" class="text-white hover:opacity-70 hover:text-brand-teal transition-all duration-300 whitespace-nowrap">Testimonios</a>
-                <a href="#reservas" class="text-white font-semibold border border-white/30 px-2 py-1 md:px-4 md:py-2 rounded-md hover:bg-white hover:text-brand-blue transition-all duration-300 nav-cta whitespace-nowrap">Agendar Cita</a>
+                <a href="#servicios" class="text-brand-blue hover:opacity-70 hover:text-brand-teal transition-all duration-300 whitespace-nowrap">Servicios</a>
+                <a href="#sobre-nosotros" class="text-brand-blue hover:opacity-70 hover:text-brand-teal transition-all duration-300 whitespace-nowrap">Quiénes Somos</a>
+                <a href="#testimonios" class="text-brand-blue hover:opacity-70 hover:text-brand-teal transition-all duration-300 whitespace-nowrap">Testimonios</a>
+                <a href="#reservas" class="text-brand-blue font-semibold border border-brand-blue px-2 py-1 md:px-4 md:py-2 rounded-md hover:bg-brand-blue hover:text-white transition-all duration-300 nav-cta whitespace-nowrap">Agendar Cita</a>
             </nav>
         </div>
     </header>
 
     <!-- BLOQUE 1: PRIMERA PANTALLA (HERO SECTION) -->
-    <section class="relative h-screen w-full overflow-hidden flex items-center justify-center">
-        <!-- Imagen de fondo con animación lenta -->
-        <div class="absolute inset-0 w-full h-full">
-            <img src="https://i.postimg.cc/65jKtzwN/background.png" alt="Fondo Centro Veterinario Polipet's" class="object-cover w-full h-full animate-slow-pan">
-            <!-- Overlay oscuro original para legibilidad -->
-            <div class="absolute inset-0 bg-brand-blue/40 mix-blend-multiply"></div>
-            <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-japandi-bg/90"></div>
-        </div>
-
-        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20 fade-in">
-            <p class="text-brand-teal font-sans tracking-[0.2em] text-sm md:text-base uppercase mb-6 drop-shadow-[0_0_12px_rgba(255,255,255,1)] font-bold">CENTRO VETERINARIO POLIPET'S</p>
+    <section class="relative min-h-screen w-full overflow-hidden flex items-center bg-japandi-bg">
+        
+        <!-- Imagen Principal de fondo (Más grande, ocupando la pantalla) -->
+        <div class="absolute inset-0 w-full h-full z-0">
+            <!-- Patrón de huellas de fondo sutil (Opcional, base) -->
+            <img src="https://i.postimg.cc/65jKtzwN/background.png" alt="Fondo" class="object-cover w-full h-full opacity-30 absolute inset-0 mix-blend-multiply">
             
-            <!-- Título con colores de la marca y efecto glow blanco -->
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif text-brand-blue mb-8 leading-tight drop-shadow-[0_0_25px_rgba(255,255,255,1)]">
+            <!-- Imagen Fotográfica Principal expandida (CARRUSEL) -->
+            <div id="hero-image-container" class="absolute inset-0 w-full h-full overflow-hidden shadow-2xl transition-all duration-1000 ease-in-out">
+                <!-- Slide 1 -->
+                <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out opacity-100 z-10 bg-cover bg-center" style="background-image: url('https://i.imgur.com/Adjs05k.jpg');">
+                    <img src="https://i.imgur.com/GeSaYNY.jpg" alt="Instalaciones 1" class="absolute inset-0 w-full h-full object-contain md:object-cover object-center z-10">
+                </div>
+                <!-- Slide 2 -->
+                <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out opacity-0 z-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/Adjs05k.jpg');">
+                    <!-- Imagen exclusiva para Móviles -->
+                    <img src="https://i.imgur.com/y4AcQlf.jpg" alt="Instalaciones 2 Mobile" class="absolute inset-0 w-full h-full object-contain object-center z-10 block md:hidden">
+                    <!-- Imagen exclusiva para Desktop y Tablets -->
+                    <img src="https://i.imgur.com/31eRqj1.jpg" alt="Instalaciones 2 Desktop" class="absolute inset-0 w-full h-full object-cover object-center z-10 hidden md:block">
+                </div>
+                <!-- Slide 3 -->
+                <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out opacity-0 z-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/Adjs05k.jpg');">
+                    <img src="https://i.imgur.com/foIHo4h.jpg" alt="Instalaciones 3" class="absolute inset-0 w-full h-full object-contain object-right z-10 drop-shadow-2xl pt-24 md:pt-32 pb-8 md:pb-12 pr-4 md:pr-12">
+                    <!-- Efecto Fade interno izquierdo exclusivo de la 3ra imagen -->
+                    <div class="absolute inset-y-0 left-0 w-full md:w-1/2 lg:w-[55%] bg-gradient-to-r from-japandi-bg via-japandi-bg/80 to-transparent z-20 pointer-events-none"></div>
+                </div>
+                <!-- Slide 4 -->
+                <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out opacity-0 z-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/Adjs05k.jpg');">
+                    <img src="https://i.imgur.com/j2Dmls1.jpg" alt="Instalaciones 4" class="absolute inset-0 w-full h-full object-contain object-left z-10 drop-shadow-2xl pt-24 md:pt-32 pb-8 md:pb-12 pl-4 md:pl-12">
+                    <!-- Efecto Fade interno derecho exclusivo de la 4ta imagen -->
+                    <div class="absolute inset-y-0 right-0 w-full md:w-1/2 lg:w-[55%] bg-gradient-to-l from-japandi-bg via-japandi-bg/80 to-transparent z-20 pointer-events-none"></div>
+                </div>
+                <!-- Slide 5 -->
+                <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out opacity-0 z-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/Adjs05k.jpg');">
+                    <img src="https://i.imgur.com/GlxnnOI.jpg" alt="Instalaciones 5" class="absolute inset-0 w-full h-full object-contain object-right z-10 drop-shadow-2xl pt-24 md:pt-32 pb-8 md:pb-12 pr-4 md:pr-12">
+                    <!-- Efecto Fade interno izquierdo exclusivo de la 5ta imagen -->
+                    <div class="absolute inset-y-0 left-0 w-full md:w-1/2 lg:w-[55%] bg-gradient-to-r from-japandi-bg via-japandi-bg/80 to-transparent z-20 pointer-events-none"></div>
+                </div>
+                <!-- Slide 6 -->
+                <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out opacity-0 z-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/Adjs05k.jpg');">
+                    <img src="https://i.imgur.com/9GleHCf.jpg" alt="Instalaciones 6" class="absolute inset-0 w-full h-full object-contain object-left z-10 drop-shadow-2xl pt-24 md:pt-32 pb-8 md:pb-12 pl-4 md:pl-12">
+                    <!-- Efecto Fade interno derecho exclusivo de la 6ta imagen -->
+                    <div class="absolute inset-y-0 right-0 w-full md:w-1/2 lg:w-[55%] bg-gradient-to-l from-japandi-bg via-japandi-bg/80 to-transparent z-20 pointer-events-none"></div>
+                </div>
+        </div>
+        
+        <!-- Gradiente Izquierdo Global para dar legibilidad perfecta al texto y logo superpuestos -->
+        <div id="hero-gradient-left" class="absolute inset-y-0 left-0 w-full md:w-1/2 lg:w-[45%] bg-gradient-to-r from-japandi-bg via-japandi-bg/95 to-transparent z-[15] transition-opacity duration-1000 opacity-0 pointer-events-none"></div>
+        <!-- Gradiente Derecho Global para texto en Slide 4 -->
+        <div id="hero-gradient-right" class="absolute inset-y-0 right-0 w-full md:w-1/2 lg:w-[45%] bg-gradient-to-l from-japandi-bg via-japandi-bg/95 to-transparent z-[15] transition-opacity duration-1000 opacity-0 pointer-events-none"></div>
+    </div>
+
+    <!-- Contenedor Principal: Texto y Logo Enfrente -->
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 h-full flex flex-col justify-center mt-24 md:mt-0 pointer-events-none">
+        
+        <!-- Columna de contenido superpuesta -->
+        <div id="hero-content-block" class="hero-ui w-full max-w-2xl flex flex-col items-start text-left transition-all duration-1000 opacity-0 pointer-events-auto">
+            
+            <!-- Logo Grande Superpuesto -->
+            <img src="https://i.postimg.cc/VLh2ymVb/logo.png" alt="Logo Centro Veterinario Polipet's" class="h-32 md:h-48 lg:h-56 w-auto mb-8 drop-shadow-xl transition-transform duration-500 hover:scale-105">
+                
+                <!-- Subtítulo tipo etiqueta -->
+                <p class="text-brand-teal font-sans tracking-[0.2em] text-xs md:text-sm uppercase mb-4 font-bold bg-white/90 backdrop-blur-md px-5 py-2 rounded-lg inline-block shadow-sm border border-brand-teal/20">
+                    CENTRO VETERINARIO POLIPET'S
+                </p>
+                
+                <!-- Título Superpuesto -->
+            <h1 class="text-5xl md:text-7xl lg:text-[5.5rem] font-serif text-brand-blue mb-6 leading-[1.05] drop-shadow-md">
                 Dejamos huellas <br class="hidden md:block">de amor.
             </h1>
 
-            <!-- Logo central a color -->
-            <img src="https://i.postimg.cc/VLh2ymVb/logo.png" alt="Logo Centro Veterinario Polipet's" class="h-28 md:h-40 lg:h-44 w-auto mx-auto drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] mt-2 transition-transform duration-500 hover:scale-105">
         </div>
+
+    </div>
+    
+    <!-- Indicadores de Carrusel (Puntos) -->
+    <div class="absolute bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 z-30 flex items-center gap-4">
+        <button type="button" class="hero-dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-brand-blue/20 hover:bg-brand-teal transition-all duration-300 cursor-pointer" data-index="0" aria-label="Ir a la imagen 1"></button>
+        <button type="button" class="hero-dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-brand-blue/20 hover:bg-brand-teal transition-all duration-300 cursor-pointer" data-index="1" aria-label="Ir a la imagen 2"></button>
+        <button type="button" class="hero-dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-brand-blue/20 hover:bg-brand-teal transition-all duration-300 cursor-pointer" data-index="2" aria-label="Ir a la imagen 3"></button>
+        <button type="button" class="hero-dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-brand-blue/20 hover:bg-brand-teal transition-all duration-300 cursor-pointer" data-index="3" aria-label="Ir a la imagen 4"></button>
+        <button type="button" class="hero-dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-brand-blue/20 hover:bg-brand-teal transition-all duration-300 cursor-pointer" data-index="4" aria-label="Ir a la imagen 5"></button>
+        <button type="button" class="hero-dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-brand-blue/20 hover:bg-brand-teal transition-all duration-300 cursor-pointer" data-index="5" aria-label="Ir a la imagen 6"></button>
+    </div>
+
     </section>
 
     <!-- BLOQUE NUEVO: SERVICIOS -->
-    <section id="servicios" class="py-24 px-6 bg-japandi-bg">
-        <div class="max-w-7xl mx-auto">
+    <section id="servicios" class="relative py-24 px-6 overflow-hidden">
+        
+        <!-- Imagen de fondo de la sección -->
+        <div class="absolute inset-0 w-full h-full z-0">
+            <img src="https://i.imgur.com/Adjs05k.jpg" alt="Fondo Servicios" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/1920x1080/EFECE6/2D2A26?text=Fondo+Servicios';">
+            <!-- Overlay más suave para mostrar la imagen y mantener legibilidad del texto -->
+            <div class="absolute inset-0 bg-white/50"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center mb-16 fade-in">
                 <p class="text-brand-teal font-sans tracking-[0.2em] text-sm uppercase mb-4 font-semibold">Cuidado Integral</p>
                 <h2 class="text-3xl md:text-5xl font-serif text-brand-blue mb-6">Nuestros Servicios</h2>
@@ -275,7 +337,7 @@
                 <!-- Servicio 1 -->
                 <div onclick="openServiceModal('ecografia')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in">
                     <div class="w-20 h-20 rounded-full overflow-hidden mb-4 ring-2 ring-transparent ring-offset-2 ring-offset-white group-hover:ring-brand-teal transition-all duration-300 shadow-sm">
-                        <img src="https://i.postimg.cc/m2jmk64r/ecografia.jpg" alt="Ecografía Especializada" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://i.postimg.cc/m2jmk64r/ecografia.jpg" alt="Ecografía Especializada" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
                     </div>
                     <h3 class="font-medium text-brand-blue text-sm mb-3">Ecografía Especializada</h3>
                     <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
@@ -287,7 +349,7 @@
                 <!-- Servicio 2 -->
                 <div onclick="openServiceModal('hospitalizacion')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 50ms;">
                     <div class="w-20 h-20 rounded-full overflow-hidden mb-4 ring-2 ring-transparent ring-offset-2 ring-offset-white group-hover:ring-brand-teal transition-all duration-300 shadow-sm">
-                        <img src="https://i.postimg.cc/9Qp0vZy8/hospitalizacion.jpg" alt="Hospitalización" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://i.postimg.cc/9Qp0vZy8/hospitalizacion.jpg" alt="Hospitalización" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
                     </div>
                     <h3 class="font-medium text-brand-blue text-sm mb-3">Hospitalización</h3>
                     <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
@@ -299,7 +361,7 @@
                 <!-- Servicio 3 -->
                 <div onclick="openServiceModal('profilaxis')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 100ms;">
                     <div class="w-20 h-20 rounded-full overflow-hidden mb-4 ring-2 ring-transparent ring-offset-2 ring-offset-white group-hover:ring-brand-teal transition-all duration-300 shadow-sm">
-                        <img src="https://i.postimg.cc/dtc034BH/profilaxis.jpg" alt="Profilaxis" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://i.postimg.cc/dtc034BH/profilaxis.jpg" alt="Profilaxis" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
                     </div>
                     <h3 class="font-medium text-brand-blue text-sm mb-3">Profilaxis</h3>
                     <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
@@ -311,7 +373,7 @@
                 <!-- Servicio 4 -->
                 <div onclick="openServiceModal('banos')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 150ms;">
                     <div class="w-20 h-20 rounded-full overflow-hidden mb-4 ring-2 ring-transparent ring-offset-2 ring-offset-white group-hover:ring-brand-teal transition-all duration-300 shadow-sm">
-                        <img src="https://i.postimg.cc/QMz83bCP/banosmedicados.jpg" alt="Baños Medicados" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://i.postimg.cc/QMz83bCP/banosmedicados.jpg" alt="Baños Medicados" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
                     </div>
                     <h3 class="font-medium text-brand-blue text-sm mb-3">Baños Medicados</h3>
                     <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
@@ -323,7 +385,7 @@
                 <!-- Servicio 5 -->
                 <div onclick="openServiceModal('consultas')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 200ms;">
                     <div class="w-20 h-20 rounded-full overflow-hidden mb-4 ring-2 ring-transparent ring-offset-2 ring-offset-white group-hover:ring-brand-teal transition-all duration-300 shadow-sm">
-                        <img src="https://i.imgur.com/xhZW4pk.jpg" alt="Consultas" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://i.imgur.com/xhZW4pk.jpg" alt="Consultas" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
                     </div>
                     <h3 class="font-medium text-brand-blue text-sm mb-3">Consultas</h3>
                     <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
@@ -335,7 +397,7 @@
                 <!-- Servicio 6 -->
                 <div onclick="openServiceModal('nebulizacion')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 250ms;">
                     <div class="w-20 h-20 rounded-full overflow-hidden mb-4 ring-2 ring-transparent ring-offset-2 ring-offset-white group-hover:ring-brand-teal transition-all duration-300 shadow-sm">
-                        <img src="https://i.imgur.com/UC5Hc09.jpg" alt="Nebulización" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://i.imgur.com/UC5Hc09.jpg" alt="Nebulización" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
                     </div>
                     <h3 class="font-medium text-brand-blue text-sm mb-3">Nebulización</h3>
                     <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
@@ -347,7 +409,7 @@
                 <!-- Servicio 7 -->
                 <div onclick="openServiceModal('vacunacion')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 300ms;">
                     <div class="w-20 h-20 rounded-full overflow-hidden mb-4 ring-2 ring-transparent ring-offset-2 ring-offset-white group-hover:ring-brand-teal transition-all duration-300 shadow-sm">
-                        <img src="https://i.imgur.com/wG2zIP3.jpg" alt="Vacunación" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://i.imgur.com/wG2zIP3.jpg" alt="Vacunación" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
                     </div>
                     <h3 class="font-medium text-brand-blue text-sm mb-3">Vacunación</h3>
                     <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
@@ -359,7 +421,7 @@
                 <!-- Servicio 8 -->
                 <div onclick="openServiceModal('procedimientos')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 350ms;">
                     <div class="w-20 h-20 rounded-full overflow-hidden mb-4 ring-2 ring-transparent ring-offset-2 ring-offset-white group-hover:ring-brand-teal transition-all duration-300 shadow-sm">
-                        <img src="https://i.imgur.com/FJ7OUWT.jpg" alt="Procedimientos" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://i.imgur.com/FJ7OUWT.jpg" alt="Procedimientos" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
                     </div>
                     <h3 class="font-medium text-brand-blue text-sm mb-3">Procedimientos</h3>
                     <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
@@ -371,7 +433,7 @@
                 <!-- Servicio 9 -->
                 <div onclick="openServiceModal('presiones')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 400ms;">
                     <div class="w-20 h-20 rounded-full overflow-hidden mb-4 ring-2 ring-transparent ring-offset-2 ring-offset-white group-hover:ring-brand-teal transition-all duration-300 shadow-sm">
-                        <img src="https://i.imgur.com/Dim0ybS.jpg" alt="Toma de Presiones" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://i.imgur.com/Dim0ybS.jpg" alt="Toma de Presiones" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
                     </div>
                     <h3 class="font-medium text-brand-blue text-sm mb-3">Toma de Presiones</h3>
                     <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
@@ -383,7 +445,7 @@
                 <!-- Servicio 10 -->
                 <div onclick="openServiceModal('ecocardiografia')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 450ms;">
                     <div class="w-20 h-20 rounded-full overflow-hidden mb-4 ring-2 ring-transparent ring-offset-2 ring-offset-white group-hover:ring-brand-teal transition-all duration-300 shadow-sm">
-                        <img src="https://i.imgur.com/RKNuaSA.jpg" alt="Ecocardiografía" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://i.imgur.com/RKNuaSA.jpg" alt="Ecocardiografía" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
                     </div>
                     <h3 class="font-medium text-brand-blue text-sm mb-3">Ecocardiografía</h3>
                     <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
@@ -431,11 +493,11 @@
                     <div id="about-carousel" class="aspect-square w-full rounded-2xl overflow-hidden shadow-[0_20px_50px_-12px_rgba(11,34,82,0.15)] border border-brand-blue/20 relative z-10 group/slider">
                         <!-- Slider Track -->
                         <div class="slider-track flex transition-transform duration-700 ease-in-out h-full w-full bg-japandi-bg">
-                            <img src="https://i.postimg.cc/Wp5tKGDd/1.jpg" alt="Paciente en Polipet's 1" class="w-full h-full object-cover block shrink-0" referrerpolicy="no-referrer">
-                            <img src="https://i.postimg.cc/G3X9NFBB/2.jpg" alt="Paciente en Polipet's 2" class="w-full h-full object-cover block shrink-0" referrerpolicy="no-referrer">
-                            <img src="https://i.postimg.cc/YqjjwvgM/3.jpg" alt="Paciente en Polipet's 3" class="w-full h-full object-cover block shrink-0" referrerpolicy="no-referrer">
-                            <img src="https://i.postimg.cc/vHDDd49G/4.jpg" alt="Paciente en Polipet's 4" class="w-full h-full object-cover block shrink-0" referrerpolicy="no-referrer">
-                            <img src="https://i.postimg.cc/J4ttWsJ1/5.jpg" alt="Paciente en Polipet's 5" class="w-full h-full object-cover block shrink-0" referrerpolicy="no-referrer">
+                            <img src="https://i.postimg.cc/Wp5tKGDd/1.jpg" alt="Paciente en Polipet's 1" class="w-full h-full object-cover block shrink-0" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='https://placehold.co/600x600/EFECE6/2D2A26?text=Paciente+1';">
+                            <img src="https://i.postimg.cc/G3X9NFBB/2.jpg" alt="Paciente en Polipet's 2" class="w-full h-full object-cover block shrink-0" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='https://placehold.co/600x600/EFECE6/2D2A26?text=Paciente+2';">
+                            <img src="https://i.postimg.cc/YqjjwvgM/3.jpg" alt="Paciente en Polipet's 3" class="w-full h-full object-cover block shrink-0" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='https://placehold.co/600x600/EFECE6/2D2A26?text=Paciente+3';">
+                            <img src="https://i.postimg.cc/vHDDd49G/4.jpg" alt="Paciente en Polipet's 4" class="w-full h-full object-cover block shrink-0" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='https://placehold.co/600x600/EFECE6/2D2A26?text=Paciente+4';">
+                            <img src="https://i.postimg.cc/J4ttWsJ1/5.jpg" alt="Paciente en Polipet's 5" class="w-full h-full object-cover block shrink-0" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='https://placehold.co/600x600/EFECE6/2D2A26?text=Paciente+5';">
                         </div>
                         
                         <!-- Controles Prev/Next (Siempre visibles, estilizados) -->
@@ -748,7 +810,7 @@
                 <!-- Columna 1: Marca y Descripción -->
                 <div class="col-span-1 lg:col-span-1 fade-in">
                     <div class="flex items-center gap-3 mb-6">
-                        <img src="https://i.postimg.cc/VLh2ymVb/logo.png" alt="Logo Polipet's" class="h-10 w-auto brightness-0 invert">
+                        <img src="https://i.postimg.cc/VLh2ymVb/logo.png" alt="Logo Polipet's" class="h-10 w-auto brightness-0 invert" onerror="this.onerror=null; this.src='https://placehold.co/100x40/006B75/FFF?text=Logo';">
                         <span class="font-sans font-light tracking-widest text-xl uppercase">Polipet´s</span>
                     </div>
                     <p class="text-white/70 font-light text-sm leading-relaxed mb-8 pr-4">
@@ -873,65 +935,6 @@
                 }, 3500);
             }
 
-            // 1. Navbar Scroll Effect (Ahora adaptado para el menú unificado)
-            const navbar = document.getElementById('navbar');
-            const logo = document.querySelector('.nav-logo');
-            const navLinks = document.querySelectorAll('#navbar nav a:not(.nav-cta)'); // Excluir el CTA para estilizarlo aparte
-            const navCta = document.querySelector('.nav-cta');
-            
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                    navbar.classList.replace('py-3', 'py-2');
-                    navbar.classList.replace('md:py-4', 'md:py-3');
-                    
-                    // Actualizar color de texto e imagen del logo
-                    if (logo) {
-                        logo.classList.remove('text-white');
-                        logo.classList.add('text-brand-blue');
-                    }
-                    const headerImg = document.querySelector('.header-logo-img');
-                    if(headerImg) headerImg.classList.remove('brightness-0', 'invert');
-
-                    // Cambiar enlaces a azul oscuro
-                    navLinks.forEach(link => {
-                        link.classList.remove('text-white');
-                        link.classList.add('text-brand-blue');
-                    });
-
-                    // Estilizar el botón CTA al hacer scroll
-                    if(navCta) {
-                        navCta.classList.remove('text-white', 'border-white/30', 'hover:bg-white', 'hover:text-brand-blue');
-                        navCta.classList.add('text-brand-blue', 'border-brand-blue', 'hover:bg-brand-blue', 'hover:text-white');
-                    }
-                    
-                } else {
-                    navbar.classList.remove('scrolled');
-                    navbar.classList.replace('py-2', 'py-3');
-                    navbar.classList.replace('md:py-3', 'md:py-4');
-                    
-                    // Restaurar color de texto e imagen del logo a blanco
-                    if (logo) {
-                        logo.classList.remove('text-brand-blue');
-                        logo.classList.add('text-white');
-                    }
-                    const headerImg = document.querySelector('.header-logo-img');
-                    if(headerImg) headerImg.classList.add('brightness-0', 'invert');
-
-                    // Restaurar enlaces a blanco
-                    navLinks.forEach(link => {
-                        link.classList.remove('text-brand-blue');
-                        link.classList.add('text-white');
-                    });
-
-                    // Restaurar el botón CTA al inicio
-                    if(navCta) {
-                        navCta.classList.remove('text-brand-blue', 'border-brand-blue', 'hover:bg-brand-blue', 'hover:text-white');
-                        navCta.classList.add('text-white', 'border-white/30', 'hover:bg-white', 'hover:text-brand-blue');
-                    }
-                }
-            });
-
             // 3. Animaciones Fade-In con Intersection Observer
             const observerOptions = {
                 root: null,
@@ -951,6 +954,134 @@
             document.querySelectorAll('.fade-in').forEach(element => {
                 observer.observe(element);
             });
+
+            // 3.5. Carrusel Hero Section (Fondo Animado)
+            const heroSlides = document.querySelectorAll('.hero-slide');
+            const heroUIElements = document.querySelectorAll('.hero-ui');
+            const heroContainer = document.getElementById('hero-image-container');
+            const heroDots = document.querySelectorAll('.hero-dot');
+            
+            const gradientLeft = document.getElementById('hero-gradient-left');
+            const gradientRight = document.getElementById('hero-gradient-right');
+            const contentBlock = document.getElementById('hero-content-block');
+
+            if (heroSlides.length > 0) {
+                let currentHeroIndex = 0;
+                let heroInterval;
+                
+                const updateHeroUI = (index) => {
+                    // Ocultar elementos UI e imagen expandida para la primera y segunda imagen (index 0 y 1)
+                    if (index === 0 || index === 1) {
+                        heroUIElements.forEach(el => {
+                            el.classList.remove('opacity-100');
+                            el.classList.add('opacity-0');
+                        });
+                        if (heroContainer) {
+                            heroContainer.className = "absolute top-0 bottom-0 h-full overflow-hidden shadow-2xl transition-all duration-1000 ease-in-out left-0 w-full";
+                        }
+                    } else if (index === 2 || index === 4) {
+                        // Mostrar UI (Imagen a la derecha, texto a la izquierda) -> Slides 3 y 5
+                        heroUIElements.forEach(el => {
+                            el.classList.remove('opacity-0');
+                            el.classList.add('opacity-100');
+                        });
+                        if (heroContainer) {
+                            heroContainer.className = "absolute top-0 bottom-0 h-full overflow-hidden shadow-2xl transition-all duration-1000 ease-in-out right-0 md:w-[85%] w-full md:rounded-l-[80px]";
+                        }
+                    } else if (index === 3 || index === 5) {
+                        // Mostrar UI (Imagen a la izquierda, texto a la derecha) -> Slides 4 y 6
+                        heroUIElements.forEach(el => {
+                            el.classList.remove('opacity-0');
+                            el.classList.add('opacity-100');
+                        });
+                        if (heroContainer) {
+                            heroContainer.className = "absolute top-0 bottom-0 h-full overflow-hidden shadow-2xl transition-all duration-1000 ease-in-out left-0 md:w-[85%] w-full md:rounded-r-[80px]";
+                        }
+                    }
+
+                    // Posicionamiento dinámico del texto según el slide activo
+                    if (contentBlock) {
+                        if (index === 3 || index === 5) {
+                            contentBlock.className = "hero-ui w-full max-w-2xl flex flex-col transition-all duration-1000 pointer-events-auto opacity-100 items-end text-right ml-auto";
+                        } else if (index === 2 || index === 4) {
+                            contentBlock.className = "hero-ui w-full max-w-2xl flex flex-col transition-all duration-1000 pointer-events-auto opacity-100 items-start text-left";
+                        } else {
+                            contentBlock.className = "hero-ui w-full max-w-2xl flex flex-col transition-all duration-1000 pointer-events-auto opacity-0 items-start text-left";
+                        }
+                    }
+
+                    // Alternancia de degradados (Izquierdo vs Derecho)
+                    if (gradientLeft) {
+                        if (index === 2 || index === 4) {
+                            gradientLeft.classList.remove('opacity-0');
+                            gradientLeft.classList.add('opacity-100');
+                        } else {
+                            gradientLeft.classList.remove('opacity-100');
+                            gradientLeft.classList.add('opacity-0');
+                        }
+                    }
+                    if (gradientRight) {
+                        if (index === 3 || index === 5) {
+                            gradientRight.classList.remove('opacity-0');
+                            gradientRight.classList.add('opacity-100');
+                        } else {
+                            gradientRight.classList.remove('opacity-100');
+                            gradientRight.classList.add('opacity-0');
+                        }
+                    }
+
+                    // Actualizar el estado visual de los puntos (dots)
+                    if (heroDots.length > 0) {
+                        heroDots.forEach((dot, dotIndex) => {
+                            if (dotIndex === index) {
+                                dot.classList.remove('bg-brand-blue/20', 'scale-100');
+                                dot.classList.add('bg-brand-teal', 'scale-125', 'ring-4', 'ring-brand-teal/20');
+                            } else {
+                                dot.classList.remove('bg-brand-teal', 'scale-125', 'ring-4', 'ring-brand-teal/20');
+                                dot.classList.add('bg-brand-blue/20', 'scale-100');
+                            }
+                        });
+                    }
+                };
+
+                const goToSlide = (index) => {
+                    // Ocultar slide actual
+                    heroSlides[currentHeroIndex].classList.remove('opacity-100', 'z-10');
+                    heroSlides[currentHeroIndex].classList.add('opacity-0', 'z-0');
+                    
+                    // Avanzar al siguiente índice
+                    currentHeroIndex = index;
+                    
+                    // Mostrar nuevo slide
+                    heroSlides[currentHeroIndex].classList.remove('opacity-0', 'z-0');
+                    heroSlides[currentHeroIndex].classList.add('opacity-100', 'z-10');
+                    
+                    // Actualizar UI text/gradient y puntos
+                    updateHeroUI(currentHeroIndex);
+                };
+
+                const startAutoPlay = () => {
+                    heroInterval = setInterval(() => {
+                        goToSlide((currentHeroIndex + 1) % heroSlides.length);
+                    }, 4000); // Transición automática cada 4 segundos
+                };
+
+                // Estado inicial
+                updateHeroUI(currentHeroIndex);
+                startAutoPlay();
+
+                // Listeners para clics manuales en los puntos
+                heroDots.forEach((dot) => {
+                    dot.addEventListener('click', (e) => {
+                        const targetIndex = parseInt(e.target.dataset.index);
+                        if (targetIndex !== currentHeroIndex) {
+                            clearInterval(heroInterval); // Pausar auto-reproducción
+                            goToSlide(targetIndex); // Ir a la imagen clickeada
+                            startAutoPlay(); // Reiniciar auto-reproducción
+                        }
+                    });
+                });
+            }
 
             // 4. Lógica Inteligente del Calendario de Reservas (Flatpickr)
             const checkinInput = document.getElementById('checkin');
@@ -1093,6 +1224,7 @@
             }
             
             // 8. Lógica del Modal de Servicios (Videos e Imágenes con Slider Integrado)
+            // (Nota: Las rutas asumen que los videos e imágenes existen en el proyecto local. Las que fallen mostrarán un fallback manejado por el navegador/CSS)
             const serviceData = {
                 'ecografia': { 
                     title: 'Ecografía Especializada', 
@@ -1239,7 +1371,7 @@
                             } else if (item.type === 'image') {
                                 sliderHtml += `
                                     <div class="modal-media-slide absolute inset-0 ${visibilityClass} items-center justify-center bg-japandi-light/30 backdrop-blur-md" data-index="${index}">
-                                        <img src="${item.src}" alt="${data.title}" class="max-w-full max-h-full object-contain drop-shadow-lg">
+                                        <img src="${item.src}" alt="${data.title}" class="max-w-full max-h-full object-contain drop-shadow-lg" onerror="this.onerror=null; this.src='https://placehold.co/800x600/EFECE6/2D2A26?text=${encodeURIComponent(data.title)}';">
                                     </div>
                                 `;
                             }
