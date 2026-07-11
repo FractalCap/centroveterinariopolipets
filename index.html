@@ -206,12 +206,12 @@
         </div>
     </a>
 
-    <!-- NAVEGACIÓN UNIFICADA (FIJA Y VISIBLE) -->
-    <header id="navbar" class="fixed w-full top-0 z-50 py-2 md:py-3 px-2 md:px-12 bg-japandi-bg/95 backdrop-blur-md shadow-sm transition-all duration-300">
-        <div class="max-w-7xl mx-auto flex flex-col items-center justify-center gap-2 md:gap-3">
+    <!-- NAVEGACIÓN UNIFICADA (RESPONSIVE) -->
+    <header class="fixed w-full top-0 z-50 py-2 md:py-3 px-2 md:px-12 bg-japandi-bg/95 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex flex-col items-center justify-center gap-2 md:gap-3 transition-all duration-300">
             <!-- Fila superior: Logo centrado -->
             <div class="w-full flex justify-center items-center">
-                <a href="#" class="flex items-center gap-2 md:gap-3 font-sans font-light tracking-widest text-base md:text-xl uppercase z-50 nav-logo text-brand-blue transition-colors duration-500">
+                <a href="#" class="flex items-center gap-2 md:gap-3 font-sans font-light tracking-widest text-base md:text-xl uppercase z-50 nav-logo transition-colors duration-500 text-brand-blue">
                     <img src="https://i.postimg.cc/VLh2ymVb/logo.png" alt="Logo Polipet's" class="h-6 md:h-10 w-auto transition-all duration-500 header-logo-img" onerror="this.onerror=null; this.src='https://placehold.co/100x40/0B2252/FFF?text=Logo';">
                     <span>Polipet´s</span>
                 </a>
@@ -228,7 +228,7 @@
     </header>
 
     <!-- BLOQUE 1: PRIMERA PANTALLA (HERO SECTION) -->
-    <section class="relative min-h-screen w-full overflow-hidden flex items-center bg-japandi-bg">
+    <section class="relative h-[100dvh] md:min-h-screen w-full overflow-hidden flex items-center bg-japandi-bg">
         
         <!-- Imagen Principal de fondo (Más grande, ocupando la pantalla) -->
         <div class="absolute inset-0 w-full h-full z-0">
@@ -239,49 +239,46 @@
             <div id="hero-image-container" class="absolute inset-0 w-full h-full overflow-hidden shadow-2xl transition-all duration-1000 ease-in-out">
                 <!-- Slide 1 -->
                 <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out opacity-100 z-10 bg-cover bg-center" style="background-image: url('https://i.imgur.com/Adjs05k.jpg');">
-                    <img src="https://i.imgur.com/GeSaYNY.jpg" alt="Instalaciones 1" class="absolute inset-0 w-full h-full object-contain md:object-cover object-center z-10">
+                    <img src="https://i.imgur.com/GeSaYNY.jpg" alt="Instalaciones 1" class="absolute inset-0 w-full h-full object-contain md:object-cover object-center z-10 drop-shadow-2xl">
                 </div>
                 <!-- Slide 2 -->
                 <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out opacity-0 z-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/Adjs05k.jpg');">
-                    <!-- Imagen exclusiva para Móviles -->
-                    <img src="https://i.imgur.com/y4AcQlf.jpg" alt="Instalaciones 2 Mobile" class="absolute inset-0 w-full h-full object-contain object-center z-10 block md:hidden">
-                    <!-- Imagen exclusiva para Desktop y Tablets -->
-                    <img src="https://i.imgur.com/31eRqj1.jpg" alt="Instalaciones 2 Desktop" class="absolute inset-0 w-full h-full object-cover object-center z-10 hidden md:block">
+                    <img src="https://i.imgur.com/31eRqj1.jpg" alt="Instalaciones 2" class="absolute inset-0 w-full h-full object-contain md:object-cover object-center z-10 drop-shadow-2xl">
                 </div>
                 <!-- Slide 3 -->
                 <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out opacity-0 z-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/Adjs05k.jpg');">
-                    <img src="https://i.imgur.com/foIHo4h.jpg" alt="Instalaciones 3" class="absolute inset-0 w-full h-full object-contain object-right z-10 drop-shadow-2xl pt-24 md:pt-32 pb-8 md:pb-12 pr-4 md:pr-12">
+                    <img src="https://i.imgur.com/foIHo4h.jpg" alt="Instalaciones 3" class="absolute inset-0 w-full h-full object-contain object-center md:object-right z-10 drop-shadow-2xl pt-24 pb-20 md:pt-32 md:pb-12 px-4 md:px-0 md:pr-12">
                     <!-- Efecto Fade interno izquierdo exclusivo de la 3ra imagen -->
-                    <div class="absolute inset-y-0 left-0 w-full md:w-1/2 lg:w-[55%] bg-gradient-to-r from-japandi-bg via-japandi-bg/80 to-transparent z-20 pointer-events-none"></div>
+                    <div class="absolute inset-y-0 left-0 w-full md:w-1/2 lg:w-[55%] bg-gradient-to-r from-japandi-bg via-japandi-bg/80 to-transparent z-20 pointer-events-none hidden md:block"></div>
                 </div>
                 <!-- Slide 4 -->
                 <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out opacity-0 z-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/Adjs05k.jpg');">
-                    <img src="https://i.imgur.com/j2Dmls1.jpg" alt="Instalaciones 4" class="absolute inset-0 w-full h-full object-contain object-left z-10 drop-shadow-2xl pt-24 md:pt-32 pb-8 md:pb-12 pl-4 md:pl-12">
+                    <img src="https://i.imgur.com/j2Dmls1.jpg" alt="Instalaciones 4" class="absolute inset-0 w-full h-full object-contain object-center md:object-left z-10 drop-shadow-2xl pt-24 pb-20 md:pt-32 md:pb-12 px-4 md:px-0 md:pl-12">
                     <!-- Efecto Fade interno derecho exclusivo de la 4ta imagen -->
-                    <div class="absolute inset-y-0 right-0 w-full md:w-1/2 lg:w-[55%] bg-gradient-to-l from-japandi-bg via-japandi-bg/80 to-transparent z-20 pointer-events-none"></div>
+                    <div class="absolute inset-y-0 right-0 w-full md:w-1/2 lg:w-[55%] bg-gradient-to-l from-japandi-bg via-japandi-bg/80 to-transparent z-20 pointer-events-none hidden md:block"></div>
                 </div>
                 <!-- Slide 5 -->
                 <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out opacity-0 z-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/Adjs05k.jpg');">
-                    <img src="https://i.imgur.com/GlxnnOI.jpg" alt="Instalaciones 5" class="absolute inset-0 w-full h-full object-contain object-right z-10 drop-shadow-2xl pt-24 md:pt-32 pb-8 md:pb-12 pr-4 md:pr-12">
+                    <img src="https://i.imgur.com/GlxnnOI.jpg" alt="Instalaciones 5" class="absolute inset-0 w-full h-full object-contain object-center md:object-right z-10 drop-shadow-2xl pt-24 pb-20 md:pt-32 md:pb-12 px-4 md:px-0 md:pr-12">
                     <!-- Efecto Fade interno izquierdo exclusivo de la 5ta imagen -->
-                    <div class="absolute inset-y-0 left-0 w-full md:w-1/2 lg:w-[55%] bg-gradient-to-r from-japandi-bg via-japandi-bg/80 to-transparent z-20 pointer-events-none"></div>
+                    <div class="absolute inset-y-0 left-0 w-full md:w-1/2 lg:w-[55%] bg-gradient-to-r from-japandi-bg via-japandi-bg/80 to-transparent z-20 pointer-events-none hidden md:block"></div>
                 </div>
                 <!-- Slide 6 -->
                 <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out opacity-0 z-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/Adjs05k.jpg');">
-                    <img src="https://i.imgur.com/9GleHCf.jpg" alt="Instalaciones 6" class="absolute inset-0 w-full h-full object-contain object-left z-10 drop-shadow-2xl pt-24 md:pt-32 pb-8 md:pb-12 pl-4 md:pl-12">
+                    <img src="https://i.imgur.com/9GleHCf.jpg" alt="Instalaciones 6" class="absolute inset-0 w-full h-full object-contain object-center md:object-left z-10 drop-shadow-2xl pt-24 pb-20 md:pt-32 md:pb-12 px-4 md:px-0 md:pl-12">
                     <!-- Efecto Fade interno derecho exclusivo de la 6ta imagen -->
-                    <div class="absolute inset-y-0 right-0 w-full md:w-1/2 lg:w-[55%] bg-gradient-to-l from-japandi-bg via-japandi-bg/80 to-transparent z-20 pointer-events-none"></div>
+                    <div class="absolute inset-y-0 right-0 w-full md:w-1/2 lg:w-[55%] bg-gradient-to-l from-japandi-bg via-japandi-bg/80 to-transparent z-20 pointer-events-none hidden md:block"></div>
                 </div>
         </div>
         
         <!-- Gradiente Izquierdo Global para dar legibilidad perfecta al texto y logo superpuestos -->
-        <div id="hero-gradient-left" class="absolute inset-y-0 left-0 w-full md:w-1/2 lg:w-[45%] bg-gradient-to-r from-japandi-bg via-japandi-bg/95 to-transparent z-[15] transition-opacity duration-1000 opacity-0 pointer-events-none"></div>
-        <!-- Gradiente Derecho Global para texto en Slide 4 -->
-        <div id="hero-gradient-right" class="absolute inset-y-0 right-0 w-full md:w-1/2 lg:w-[45%] bg-gradient-to-l from-japandi-bg via-japandi-bg/95 to-transparent z-[15] transition-opacity duration-1000 opacity-0 pointer-events-none"></div>
+        <div id="hero-gradient-left" class="absolute inset-y-0 left-0 w-full md:w-1/2 lg:w-[45%] bg-gradient-to-r from-japandi-bg via-japandi-bg/95 to-transparent z-[15] transition-opacity duration-1000 opacity-0 pointer-events-none hidden md:block"></div>
+        <!-- Gradiente Derecho Global para texto en Slides pares -->
+        <div id="hero-gradient-right" class="absolute inset-y-0 right-0 w-full md:w-1/2 lg:w-[45%] bg-gradient-to-l from-japandi-bg via-japandi-bg/95 to-transparent z-[15] transition-opacity duration-1000 opacity-0 pointer-events-none hidden md:block"></div>
     </div>
 
-    <!-- Contenedor Principal: Texto y Logo Enfrente -->
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 h-full flex flex-col justify-center mt-24 md:mt-0 pointer-events-none">
+    <!-- Contenedor Principal: Texto y Logo Enfrente (Oculto en Móviles) -->
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 h-full flex-col justify-center mt-24 md:mt-0 pointer-events-none hidden md:flex">
         
         <!-- Columna de contenido superpuesta -->
         <div id="hero-content-block" class="hero-ui w-full max-w-2xl flex flex-col items-start text-left transition-all duration-1000 opacity-0 pointer-events-auto">
@@ -304,7 +301,7 @@
     </div>
     
     <!-- Indicadores de Carrusel (Puntos) -->
-    <div class="absolute bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 z-30 flex items-center gap-4">
+    <div class="absolute bottom-20 md:bottom-12 left-1/2 -translate-x-1/2 z-30 flex items-center gap-4">
         <button type="button" class="hero-dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-brand-blue/20 hover:bg-brand-teal transition-all duration-300 cursor-pointer" data-index="0" aria-label="Ir a la imagen 1"></button>
         <button type="button" class="hero-dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-brand-blue/20 hover:bg-brand-teal transition-all duration-300 cursor-pointer" data-index="1" aria-label="Ir a la imagen 2"></button>
         <button type="button" class="hero-dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-brand-blue/20 hover:bg-brand-teal transition-all duration-300 cursor-pointer" data-index="2" aria-label="Ir a la imagen 3"></button>
@@ -337,7 +334,7 @@
                 <!-- Servicio 1 -->
                 <div onclick="openServiceModal('ecografia')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in">
                     <div class="w-20 h-20 rounded-full overflow-hidden mb-4 ring-2 ring-transparent ring-offset-2 ring-offset-white group-hover:ring-brand-teal transition-all duration-300 shadow-sm">
-                        <img src="https://i.postimg.cc/m2jmk64r/ecografia.jpg" alt="Ecografía Especializada" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
+                        <img src="https://i.imgur.com/XKKJkV4.jpg" alt="Ecografía Especializada" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
                     </div>
                     <h3 class="font-medium text-brand-blue text-sm mb-3">Ecografía Especializada</h3>
                     <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
@@ -349,7 +346,7 @@
                 <!-- Servicio 2 -->
                 <div onclick="openServiceModal('hospitalizacion')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 50ms;">
                     <div class="w-20 h-20 rounded-full overflow-hidden mb-4 ring-2 ring-transparent ring-offset-2 ring-offset-white group-hover:ring-brand-teal transition-all duration-300 shadow-sm">
-                        <img src="https://i.postimg.cc/9Qp0vZy8/hospitalizacion.jpg" alt="Hospitalización" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
+                        <img src="https://i.imgur.com/Aw5rXGR.jpg" alt="Hospitalización" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
                     </div>
                     <h3 class="font-medium text-brand-blue text-sm mb-3">Hospitalización</h3>
                     <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
@@ -361,7 +358,7 @@
                 <!-- Servicio 3 -->
                 <div onclick="openServiceModal('profilaxis')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 100ms;">
                     <div class="w-20 h-20 rounded-full overflow-hidden mb-4 ring-2 ring-transparent ring-offset-2 ring-offset-white group-hover:ring-brand-teal transition-all duration-300 shadow-sm">
-                        <img src="https://i.postimg.cc/dtc034BH/profilaxis.jpg" alt="Profilaxis" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
+                        <img src="https://i.imgur.com/fGjeZgu.jpg" alt="Profilaxis" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
                     </div>
                     <h3 class="font-medium text-brand-blue text-sm mb-3">Profilaxis</h3>
                     <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
@@ -373,7 +370,7 @@
                 <!-- Servicio 4 -->
                 <div onclick="openServiceModal('banos')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-brand-gray/5 hover:border-brand-teal hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group fade-in" style="transition-delay: 150ms;">
                     <div class="w-20 h-20 rounded-full overflow-hidden mb-4 ring-2 ring-transparent ring-offset-2 ring-offset-white group-hover:ring-brand-teal transition-all duration-300 shadow-sm">
-                        <img src="https://i.postimg.cc/QMz83bCP/banosmedicados.jpg" alt="Baños Medicados" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
+                        <img src="https://i.imgur.com/rqIVgBR.jpg" alt="Baños Medicados" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/200x200/006B75/FFF?text=IMG';">
                     </div>
                     <h3 class="font-medium text-brand-blue text-sm mb-3">Baños Medicados</h3>
                     <div class="flex items-center gap-1 mt-auto text-[10px] uppercase tracking-wider text-brand-teal transition-opacity duration-300">
